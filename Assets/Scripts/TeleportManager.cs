@@ -1,6 +1,8 @@
 // TeleportManager.cs
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;  // for the UI Text
 
 public class TeleportManager : MonoBehaviour
 {
@@ -12,39 +14,56 @@ public class TeleportManager : MonoBehaviour
     [Tooltip("Drag your 5 spawn-point Transforms here")]
     public Transform[] spawnPoints;
 
-    // tracks which areas have yet to be visited
+    [Header("UI")]
+    [Tooltip("Drag the UI Text component that shows the score")]
+    public TextMeshProUGUI scoreText;
+
     private List<int> unvisitedAreas;
+    private int score = 0;
 
     void Start()
     {
-        // start with all indices (0…spawnPoints.Length-1) unvisited
-        unvisitedAreas = new List<int>();
+        // initialize the full set of areas
+        ResetAreaList();
+        UpdateScoreUI();
+    }
+
+    /// <summary>
+    /// Call this from any fire/finish trigger.
+    /// </summary>
+    public void TeleportToNextArea()
+    {
+        // if you've visited all 5, refill the list so it can go again
+        if (unvisitedAreas.Count == 0)
+            ResetAreaList();
+
+        // pick & remove a random index
+        int listIdx  = Random.Range(0, unvisitedAreas.Count);
+        int nextArea = unvisitedAreas[listIdx];
+        unvisitedAreas.RemoveAt(listIdx);
+
+        // teleport the player
+        Transform sp = spawnPoints[nextArea];
+        player.position = sp.position;
+        player.rotation = sp.rotation;
+
+        // bump the score and update UI
+        score++;
+        UpdateScoreUI();
+    }
+
+    // refill the “to-visit” list with 0…spawnPoints.Length-1
+    private void ResetAreaList()
+    {
+        unvisitedAreas = new List<int>(spawnPoints.Length);
         for (int i = 0; i < spawnPoints.Length; i++)
             unvisitedAreas.Add(i);
     }
 
-    /// <summary>
-    /// Call this from any fire/finish trigger—first time it will pick randomly
-    /// from all five areas, then remove that one from future picks, etc.
-    /// </summary>
-    public void TeleportToNextArea()
+    // show “Score: X” (or just the number) in your UI
+    private void UpdateScoreUI()
     {
-        if (unvisitedAreas.Count == 0)
-        {
-            Debug.Log("All areas complete!");
-            return;
-        }
-
-        // pick a random unvisited area
-        int listIdx  = Random.Range(0, unvisitedAreas.Count);
-        int nextArea = unvisitedAreas[listIdx];
-        Transform sp = spawnPoints[nextArea];
-
-        // snap the player
-        player.position = sp.position;
-        player.rotation = sp.rotation;
-
-        // mark that area as done
-        unvisitedAreas.RemoveAt(listIdx);
+        if (scoreText != null)
+            scoreText.text = $"Score: {score}";
     }
 }
