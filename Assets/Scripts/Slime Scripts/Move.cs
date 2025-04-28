@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Move{
-    int moveID;
-    public string moveType = "Attack";
-    string moveDescription = "This is a Move";
-    double attackMulti = 0F;
-    int healingValue = 0;
-    double statChangeMulti = 0F;
-    string element = "None";
-    string name = "Move";
-    string targetedStat = "Atk";
+    public int moveID;
 
-    int moveTargetingCase =0;
+    public static String[] singleTargetMoves = {"Splash","Attack","Double Attack","Heal","Stat Change"};
+    public string moveType = "Attack";
+    public string moveDescription = "This is a Move";
+    public double attackMulti = 0F;
+    public int healingValue = 0;
+    public double statChangeMulti = 0F;
+    public string element = "None";
+    public string moveName = "Move";
+    public string targetedStat = "Atk";
+
+    public int moveTargetingCase =0;
 
     public Slime owner;
     public Slime target;
@@ -33,7 +35,7 @@ public class Move{
 
             case 1:
                 {
-                    name = "Splash";
+                    moveName = "Splash";
                     moveType = "Splash";
                     attackMulti = 0.7F;
                     element = "Water";
@@ -43,7 +45,7 @@ public class Move{
                 break;
             case 2:
                 {
-                    name = "Wave Crash";
+                    moveName = "Wave Crash";
                     moveType = "Attack Opponents";
                     attackMulti = 0.4F;
                     element = "Water";                
@@ -51,14 +53,14 @@ public class Move{
                 break;
             case 3:
                 {
-                    name = "Stabilize";
+                    moveName = "Stabilize";
                     moveType = "Self Heal";
                     healingValue = 2;               
                 }
                 break;
             case 4:
                 {
-                    name = "Burn";
+                    moveName = "Burn";
                     moveType = "Attack";
                     attackMulti = 1F;
                     element = "Fire";                 
@@ -66,7 +68,7 @@ public class Move{
                 break;
             case 5:
                 {
-                    name = "Heat Wave";
+                    moveName = "Heat Wave";
                     moveType = "Attack Opponents";
                     attackMulti = 0.6F;
                     element = "Fire";                
@@ -74,21 +76,21 @@ public class Move{
                 break;
             case 6:
                 {
-                    name = "Rock Slam";
+                    moveName = "Rock Slam";
                     moveType = "Attack";
                     attackMulti = 1.2F;
                 }
                 break;
             case 7:
                 {
-                    name = "Rock Slide";
+                    moveName = "Rock Slide";
                     moveType = "Attack Opponents";
                     attackMulti = 1F;             
                 }
                 break;
             case 8:
                 {
-                    name = "Roll";
+                    moveName = "Roll";
                     moveType = "Self Stat Change";
                     statChangeMulti = 1.2F;
                     targetedStat = "Spd";           
@@ -96,7 +98,7 @@ public class Move{
                 break;
             case 9:
                 {
-                    name = "Absorb";
+                    moveName = "Absorb";
                     moveType = "Attack";
                     attackMulti = 0.8F;
           
@@ -104,7 +106,7 @@ public class Move{
                 break;
             case 10:
                 {
-                    name = "Vine Wrap";
+                    moveName = "Vine Wrap";
                     moveType = "Attack";
                     attackMulti = 1.4F;
           
@@ -112,14 +114,14 @@ public class Move{
                 break;
             case 11:
                 {
-                    name = "Photosynthesis";
+                    moveName = "Photosynthesis";
                     moveType = "Self Heal";
                     healingValue = 4;               
                 }
                 break;
             case 12:
                 {
-                    name = "Chill";
+                    moveName = "Chill";
                     moveType = "Stat Change";
                     statChangeMulti = 0.8;
                     targetedStat = "Spd";            
@@ -127,7 +129,7 @@ public class Move{
                 break;
             case 13:
                 {
-                    name = "Freeze";
+                    moveName = "Freeze";
                     moveType = "Attack";
                     attackMulti = 1.1F;
                     element = "Ice";                 
@@ -135,7 +137,7 @@ public class Move{
                 break;
             case 14:
                 {
-                    name = "Freeze Burn";
+                    moveName = "Freeze Burn";
                     moveType = "Attack Opponents";
                     attackMulti = 0.6F;   
                     element = "Ice";      
@@ -143,7 +145,7 @@ public class Move{
                 break;
             case 15:
                 {
-                    name = "Lightning Strike";
+                    moveName = "Lightning Strike";
                     moveType = "Attack";
                     attackMulti = 1.8F;
                     element = "Lightning";                 
@@ -151,7 +153,7 @@ public class Move{
                 break;
             case 16:
                 {
-                    name = "Shock";
+                    moveName = "Shock";
                     moveType = "Attack Opponents";
                     attackMulti = 1F;   
                     element = "Lightning";      
@@ -159,7 +161,7 @@ public class Move{
                 break;
             case 17:
                 {
-                    name = "Charge";
+                    moveName = "Charge";
                     moveType = "Self Stat Change";
                     statChangeMulti = 1.2F;
                     targetedStat = "Atk";           
@@ -167,7 +169,7 @@ public class Move{
                 break;
             case 18: ///duplicate. replace
                 {
-                    name = "Chill";
+                    moveName = "Chill";
                     moveType = "Stat Change";
                     statChangeMulti = 0.8;
                     targetedStat = "Spd";            
@@ -175,7 +177,7 @@ public class Move{
                 break;
             case 19:
                 {
-                    name = "Mud Slap";
+                    moveName = "Mud Slap";
                     moveType = "Stat Change";
                     statChangeMulti = 0.80;
                     targetedStat = "Acc";            
@@ -183,7 +185,7 @@ public class Move{
                 break;
             case 20:
                 {
-                    name = "Mud Slide";
+                    moveName = "Mud Slide";
                     moveType = "Opponents Stat Change";
                     statChangeMulti = 0.80;
                     targetedStat = "Spd";            
@@ -191,7 +193,7 @@ public class Move{
                 break;
             case 21:
                 {
-                    name = "Festive Spirit";
+                    moveName = "Festive Spirit";
                     moveType = "Team Stat Change";
                     statChangeMulti = 1.15;
                     targetedStat = "Atk";            
@@ -199,7 +201,7 @@ public class Move{
                 break;
             case 22:
                 {
-                    name = "Snowball";
+                    moveName = "Snowball";
                     moveType = "Attack";
                     attackMulti = 1.4F;
                     element = "Ice";                 
@@ -207,7 +209,7 @@ public class Move{
                 break;
             case 23:
                 {
-                    name = "Embers";
+                    moveName = "Embers";
                     moveType = "Attack";
                     attackMulti = 0.7F;
                     element = "Fire";                 
@@ -215,7 +217,7 @@ public class Move{
                 break;
             case 24:
                 {
-                    name = "Scatter";
+                    moveName = "Scatter";
                     moveType = "Self Destruct";               
                 }
                 break;
@@ -223,7 +225,7 @@ public class Move{
 
 
             default:
-                    name = "Struggle";
+                    moveName = "Struggle";
                     moveType = "Useless";
                 break;
 
@@ -236,12 +238,16 @@ public class Move{
     
     public bool checkAccuracy(List<Slime> pSlimes,List<Slime> eSlimes){
         if(UnityEngine.Random.Range(0.0f,1.0f)>owner.accuracy){
+            Debug.Log(owner.speciesName+ "Slime tried to use " + moveName + " but it missed");
             return false;
         }
+        Debug.Log(this.owner.speciesName + " Slime used " + this.moveName);
         useMove(pSlimes,eSlimes);
         return true;
     }
     public void useMove(List<Slime> pSlimes,List<Slime> eSlimes){
+
+        
 
 
         switch(moveType){
@@ -369,6 +375,8 @@ public class Move{
                 //Text: move was used, nothing happened
                 break;
         }
+
+        
 
     }
 

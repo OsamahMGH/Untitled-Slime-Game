@@ -1,22 +1,30 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using Utils;
+using UnityEngine.UI;
+using System.Linq;
+using Unity.VisualScripting;
+
 public class Slime {
-    int speciesID;
-    string speciesName="Slime";
+    public int speciesID;
+    public string speciesName="Slime";
 
-    string speciesDescription = "This is a Slime";
+    public string speciesDescription = "This is a Slime";
 
-    int hitPointModifier=1;
+    public int hitPointModifier=1;
     public int maxHP=10;
     public int currentHP;
-    int attackModifier=1;
-    int baseAttack=1;
+    public int attackModifier=1;
+    public int baseAttack=1;
     public int currentAttack;
-    int baseSpeed=1;
+    public int baseSpeed=1;
     public int currentSpeed;
     public int damageTaken=0;
     public int oozeLevel=1;
     public double accuracy=1;
-    Move[] moves;
-    int ability = 0;
+    public Move[] moves;
+    public int ability = 0;
     public Slime(int iD=0, int oLvl=1, int dmgTaken=0){
 
         speciesID = iD;
@@ -151,19 +159,29 @@ public class Slime {
 
     public void resetSlime(){ //reset slime stat changes and full heals
         oozeLevel = 1;
-         maxHP = hitPointModifier * oozeLevel;
-         baseAttack = attackModifier * oozeLevel;
+        maxHP = hitPointModifier * oozeLevel;
+        baseAttack = attackModifier * oozeLevel;
 
-         currentSpeed = baseSpeed;
-         currentAttack = baseAttack;
-         currentHP = maxHP;
+        currentSpeed = baseSpeed;
+        currentAttack = baseAttack;
+        currentHP = maxHP;
 
-         damageTaken = 0;
+        damageTaken = 0;
         
         if(speciesID!=7)
             accuracy = 1F;
         else
             accuracy = 0.55F;
+    }
+
+    public void increaseOoze(int addedOoze){
+
+        oozeLevel+=addedOoze;
+
+        maxHP = hitPointModifier * oozeLevel;
+        baseAttack = attackModifier * oozeLevel;
+        currentAttack = baseAttack;
+
     }
     
     
@@ -196,12 +214,17 @@ public class Slime {
     }
    
 
-    public void takeDamage(int dmg,string element = "None", bool checkIfHPLow = false){ //returns true if slime had been defeated
+    public bool takeDamage(int dmg,string element = "None", bool checkIfHPLow = false){ //returns true if slime had been defeated
 
         currentHP -= dmg;
-        if (currentHP<0){
+        if (currentHP<=0){
             currentHP=0;
+            Debug.Log(this.speciesName + " Slime took fatal damage");
+            return true;
         }
+
+        Debug.Log(this.speciesName + " Slime took some damage");
+        return false;
         
     }
     public void healDamage(int healAmount){
@@ -210,6 +233,7 @@ public class Slime {
         if (currentHP>maxHP){
             currentHP=maxHP;
         }
+        Debug.Log(this.speciesName + " Slime Recived healing");
         
     }
 
@@ -225,6 +249,8 @@ public class Slime {
                 currentSpeed = (int) (currentSpeed * statChangeModifier);
                 break;
         }
+
+        Debug.Log(this.speciesName + " Slime's stats changed");
 
     }
 

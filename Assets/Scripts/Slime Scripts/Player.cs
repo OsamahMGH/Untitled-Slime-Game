@@ -1,23 +1,25 @@
 using System.Collections;
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 class Player{
 
     public int maxOozeLevel;
-    int oozeLimit = 50;
-    int score = 0;
-    int currency =0;
-    int maxTeamCap = 12;
-    public ArrayList team = new ArrayList();
+    public int oozeLimit = 50;
+    public int score = 0;
+    public int currency =0;
+    public int maxTeamCap = 12;
+    public List<Slime> team = new List<Slime>();
     public SerializedDictionary<Item, int> inventory = new SerializedDictionary<Item, int>();
     
     public Player(){ //initial party of 4 water slimes
         maxOozeLevel = 5;
         team.Add(new Slime(1));
+        team.Add(new Slime(3));
         team.Add(new Slime(1));
-        team.Add(new Slime(1));
-        team.Add(new Slime(1));
+        team.Add(new Slime(3));
         team.Capacity=6;
+        reciveItem(3); //Stone Shard
     }
 
     public bool increaseOoze(int amount){
@@ -57,7 +59,14 @@ class Player{
         return false; //not found
     }
 
+    public void receiveCurrency(int amountRecived){
+        currency+=amountRecived;
+    }
 
+    public void payCurrency(int amountPayed){
+        currency-=amountPayed;
+    }
+    
     public bool consumeItem(int iD){
 
         foreach(var i in inventory ){
@@ -74,6 +83,25 @@ class Player{
         }
         return false; //item not found
 
+    }
+    public void resetTeam(){
+        foreach(Slime s in team){
+            s.resetSlime();
+        }
+    }
+    public void reciveItem(int iD){
+        foreach(var i in inventory ){
+            Item checkedItem = (Item)i.Key;
+            int quantity = i.Value;
+
+            if(checkedItem.itemID==iD){
+                inventory.Remove(checkedItem);
+                
+                inventory.Add(new Item(iD),quantity+1);
+                return;
+            } 
+        }
+         inventory.Add(new Item(iD),1);
     }
 
 }

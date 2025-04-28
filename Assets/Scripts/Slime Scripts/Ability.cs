@@ -2,11 +2,11 @@ public class Ability{
     public int abilityID;
     public string name = "Ability";
 
-    string abilityType = "When does this ability activate?";
+    public string abilityType = "When does this ability activate?";
     public bool isActive = false;
     public string abilityDescription = "This is an ability";
 
-    string elementForChecking = "None";
+    public string elementForChecking = "None";
 
     Slime holder;
     public Ability(int iD, Slime abilityHolder){
