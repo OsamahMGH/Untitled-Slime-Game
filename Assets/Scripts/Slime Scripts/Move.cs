@@ -221,6 +221,219 @@ public class Move{
                     moveType = "Self Destruct";               
                 }
                 break;
+            case 25:
+                {
+                    moveName = "Polish";
+                    moveType = "Self Stat Change";   
+                    statChangeMulti=1.2;   
+                    targetedStat = "Atk" ;        
+                }
+                break;
+            case 26:
+                {
+                    moveName = "Sharpen";
+                    moveType = "Stat Change";   
+                    statChangeMulti = 1.3;   
+                    targetedStat = "Atk";         
+                }
+                break;
+            case 27:
+                {
+                    moveName = "Bash";
+                    moveType = "Attack";  
+                    attackMulti = 1.5f;             
+                }
+                break;
+            case 28:
+                {
+                    moveName = "Mushroom Journey";
+                    moveType = "Random Stat Change";  ///Unique 
+                    statChangeMulti =1.5f;            
+                }
+                break;
+            case 29:
+                {
+                    moveName = "Infection";
+                    moveType = "Attack";   
+                    attackMulti = 1.8f;            
+                }
+                break;
+            case 30:
+                {
+                    moveName = "Sand Gust";
+                    moveType = "D Stat Change"; //uniqe   
+                    targetedStat = "Acc";      
+                    statChangeMulti = 0.85f;     
+                }
+                break;
+            case 31:
+                {
+                    moveName = "Sand Castle";
+                    moveType = "D Self heal"; //uniqe   
+                    healingValue = 3;          
+                }
+                break;
+            case 32:
+                {
+                    moveName = "Beaching";
+                    moveType = "Double attack"; //uniqe   
+                    attackMulti = 0.6f;          
+                }
+                break;
+            case 33:
+                {
+                    moveName = "Bubble Beam";
+                    moveType = "Bubble"; //uniqe   
+                    attackMulti = 0.7f;          
+                }
+                break;
+            case 34:
+                {
+                    moveName = "Slippery Soap";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Acc";      
+                    statChangeMulti = 0.9f;     
+                }
+                break;
+            case 35:
+                {
+                    moveName = "Bubble Pop";
+                    moveType = "Attack";   
+                    attackMulti = 0.5f;            
+                }
+                break;
+            case 36:
+                {
+                    moveName = "Poisonous Gas";
+                    moveType = "Attack Opponents";
+                    attackMulti = 0.4F;       
+                }
+                break;
+            case 37:
+                {
+                    moveName = "Venomous Bite";
+                    moveType = "Attack";
+                    attackMulti = 1.4F;       
+                }
+                break;
+            case 38:
+                {
+                    moveName = "Acid Spray";
+                    moveType = "Acid"; //Uniqe
+                    attackMulti = 0.3F;       
+                }
+                break;
+            case 39:
+                {
+                    moveName = "Tackle";
+                    moveType = "Attack"; 
+                    attackMulti = 0.3F;       
+                }
+                break;
+            case 40:
+                {
+                    moveName = "Smoke Screen";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Acc";      
+                    statChangeMulti = 0.85f;     
+                }
+                break;
+             case 41:
+                {
+                    moveName = "Strong Aroma";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Atk";      
+                    statChangeMulti = 1.2f;     
+                }
+                break;
+            case 42:
+                {
+                    moveName = "Strong Odor";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Atk";      
+                    statChangeMulti = 0.8f;     
+                }
+                break;
+            case 43:
+                {
+                   moveName = "Suffocation";
+                    moveType = "Attack Opponents";
+                    attackMulti = 0.5F;      
+                }
+                break;
+            case 44:
+                {
+                    moveName = "Pollute";
+                    moveType = "Attack"; 
+                    attackMulti = 1F;       
+                }
+                break;
+            case 45:
+                {
+                    moveName = "Controlled Explosion";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 1F;       
+                }
+                break;
+            case 46:
+                {
+                    moveName = "Mass Explosion";
+                    moveType = "Self Destruct And Damage"; 
+                    attackMulti = 1.2F;       
+                }
+                break;
+
+            case 47:
+                {
+                    moveName = "Sticky";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Spd";      
+                    statChangeMulti = 0.7f;        
+                }
+                break;
+            case 48:
+                {
+                    moveName = "Oil Slap";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Acc";      
+                    statChangeMulti = 0.9f;        
+                }
+                break;
+            case 49:
+                {
+                    moveName = "Sap";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Spd";      
+                    statChangeMulti = 0.9f;        
+                }
+                break;
+            case 50:
+                {
+                    moveName = "Habitat";
+                    moveType = "Habitat"; //Uniqe       
+                }
+                break;
+            case 51:
+                {
+                    moveName = "Spoonful";
+                    moveType = "Self Heal"; //Uniqe       
+                }
+                break;
+            case 52:
+                {
+                    moveName = "Sugar Rush";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Spd";      
+                    statChangeMulti = 1.12f;        
+                }
+                break;
+            case 53:
+                {
+                    moveName = "Picnic Time";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 0.5F;       
+                }
+                break;
             
 
 
@@ -228,6 +441,7 @@ public class Move{
                     moveName = "Struggle";
                     moveType = "Useless";
                 break;
+
 
         }
     }

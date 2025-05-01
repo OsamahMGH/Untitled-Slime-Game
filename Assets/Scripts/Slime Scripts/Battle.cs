@@ -12,6 +12,7 @@ class Battle{
     int turnNumber=1;
 
     bool isBossBattle;
+    string stage; 
 
     public List<Slime> playerSlimes = new List<Slime>();
     public List<Slime> enemySlimes = new List<Slime>();
@@ -47,8 +48,15 @@ class Battle{
     }
 
    
-    public void startBattle(Player player, BattleManager battleManager){
+    public void startBattle(Player player, BattleManager battleManager,SlimeSpawnerHelper spawner){
         oLvl = player.maxOozeLevel;
+        for (int i=0;i<playerSlimes.Count;i++){
+            spawner.spawnSlime(playerSlimes[i].speciesID,i,stage);
+        }
+        for (int i=0;i<enemySlimes.Count;i++){
+            spawner.spawnSlime(enemySlimes[i].speciesID,i+2,stage);
+        }
+
         //start battle abilities here
         Debug.Log("Battle Started");
         //while(oLvl>0 && player.inventory.Count>0 && player.team.Count<player.team.Capacity){ //preperation
@@ -211,8 +219,9 @@ class Battle{
             for(int i=0; i<playerSlimes.Count; i++){
                 if(slimeDefeated(playerSlimes[i])){
                     if (playerSlimes.Contains(playerSlimes[i])){
+                        
+                        player.removeSlime(player.team[player.team.IndexOf(playerSlimes[i])]);
                         playerSlimes.Remove(playerSlimes[i]);
-                        player.removeSlime(playerSlimes[i]);
                     }
                 }
             }

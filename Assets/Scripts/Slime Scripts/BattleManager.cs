@@ -13,17 +13,16 @@ public class BattleManager : MonoBehaviour
     public Canvas canvas;
     public Image moveSelectPanel;
     public Image targetSelectPanel;
+    public SlimeSpawnerHelper spawner;
     
     Battle currentBattle;
     Player player = new Player();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start(){ //////
-        //moveSelectUI(new Slime(1));
-        currentBattle = new Battle(player,(Slime)player.team[0],(Slime)player.team[1],new Slime(4), new Slime(5));
-        currentBattle.startBattle(player,this);
+    void Start(){ ////// commented to prevent auto battle starting
+        //currentBattle = new Battle(player,(Slime)player.team[0],(Slime)player.team[1],new Slime(1), new Slime(1));
+        //currentBattle.startBattle(player,this,spawner);
 
-        
     }
 
     public void moveSelectUI(Slime s){ 
@@ -112,12 +111,12 @@ public class BattleManager : MonoBehaviour
                 tsb2.GetComponent<Button>().onClick.AddListener(()=> currentBattle.selectMoveTarget(player,m,eSlimes[1],this)); 
 
             } else{
-                if(!pSlimes[0].Equals(m.owner)&& pSlimes.Count>=1){
+                if(pSlimes.Count>=2 && !pSlimes[0].Equals(m.owner)){
                     tsb3.GetComponentInChildren<TextMeshProUGUI>().text = pSlimes[0].speciesName+ "P0";
                     tsb3.transform.SetParent(targetSelectPanel.transform,false);
                     tsb3.GetComponent<Button>().onClick.AddListener(()=> currentBattle.selectMoveTarget(player,m,pSlimes[1],this)); 
 
-                }else if(pSlimes.Count>=2){
+                }else if(pSlimes.Count>=2 && !pSlimes[1].Equals(m.owner)){
                     tsb3.GetComponentInChildren<TextMeshProUGUI>().text = pSlimes[1].speciesName+ "P1";
                     tsb3.transform.SetParent(targetSelectPanel.transform,false);
                     tsb3.GetComponent<Button>().onClick.AddListener(()=> currentBattle.selectMoveTarget(player,m,pSlimes[0],this));
