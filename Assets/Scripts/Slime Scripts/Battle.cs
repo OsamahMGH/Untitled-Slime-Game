@@ -5,9 +5,10 @@ using Utils;
 using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
+using System;
 
 
-class Battle{
+public class Battle{
     
     int turnNumber=1;
 
@@ -19,32 +20,40 @@ class Battle{
     public PriorityQueue<Move,int> battleQueue = new PriorityQueue<Move, int>();
     
     public int oLvl=0;
+
+    BattleOrder battleOrder;
     
 
 
-    public  Battle(Player player,Slime allySlime1, Slime allySlime2, Slime enemySlime1, Slime enemySlime2){
+    public  Battle(Player player,Slime allySlime1, Slime allySlime2, Slime enemySlime1, Slime enemySlime2,string currentStage,BattleOrder bo){
 
         playerSlimes.Add(allySlime1);
         playerSlimes.Add(allySlime2);
         enemySlimes.Add(enemySlime1);
         enemySlimes.Add(enemySlime2);
 
+        stage = currentStage;
+
+        battleOrder = bo;
+
 
     }
 
-    public  Battle(Player player,Slime slime1, Slime slime2, Slime slime3){
+    public  Battle(Player player,Slime slime1, Slime slime2, Slime slime3,string currentStage,BattleOrder bo){
 
         playerSlimes.Add(slime1);
         playerSlimes.Add(slime2);
         enemySlimes.Add(slime3);
+        stage = currentStage;
 
 
 
     }
-    public  Battle(Player player,Slime slime1, Slime slime2){
+    public  Battle(Player player,Slime slime1, Slime slime2,string currentStage,BattleOrder bo){
 
         playerSlimes.Add(slime1);
         enemySlimes.Add(slime2);
+        stage = currentStage;
     }
 
    
@@ -64,14 +73,14 @@ class Battle{
 
             //(UI)can continue before hitting limit
         //}
-        startTurn(player, battleManager);
+        startTurn(player, battleManager,spawner);
         
     }
-    public void startTurn(Player player, BattleManager battleManager){
+    public void startTurn(Player player, BattleManager battleManager,SlimeSpawnerHelper spawner){
         Debug.Log("Turn Started");
 
         //both sides select move then start action
-        selectMoves(player, battleManager);
+        selectMoves(player, battleManager,spawner);
         
         
 
@@ -82,7 +91,7 @@ class Battle{
             Debug.Log("You lost :(");
         } else{
             Debug.Log("You Won :D");
-            player.receiveCurrency((int) Random.Range(0,oLvl));
+            player.receiveCurrency((int) UnityEngine.Random.Range(0,oLvl));
             player.resetTeam();
         }
             
@@ -107,12 +116,12 @@ class Battle{
         return false;
     }
 
-    public void selectMoves(Player player, BattleManager battleManager){
+    public void selectMoves(Player player, BattleManager battleManager,SlimeSpawnerHelper spawner){
         //Debug.Log("Move Selection Started");
 
             
         //Debug.Log("ps1");
-        battleManager.moveSelectUI(playerSlimes[0]);
+        battleManager.moveSelectUI(playerSlimes[0],spawner);
         
         //UI
         //select moves and targets and enqueue them into the pq
@@ -120,7 +129,7 @@ class Battle{
         
     }
 
-    public void selectAMove(Player player,Move selectedMove,Slime selectedTarget, BattleManager battleManager){
+    public void selectAMove(Player player,Move selectedMove,Slime selectedTarget, BattleManager battleManager,SlimeSpawnerHelper spawner){
         //close UI
 
 
@@ -131,7 +140,7 @@ class Battle{
 
 
         if(Move.singleTargetMoves.Contains(selectedMove.moveType)){ //if it is a single target move, the player must select a target through the UI
-            battleManager.selectMoveTargetUI(playerSlimes,enemySlimes,selectedMove);
+            battleManager.selectMoveTargetUI(playerSlimes,enemySlimes,selectedMove,spawner);
             return;
         }
         //copy from here
@@ -142,18 +151,18 @@ class Battle{
         if(battleQueue.Count<playerSlimes.Count){
             if(playerSlimes.Count==2){
                 //Debug.Log("ps2");
-                battleManager.moveSelectUI(playerSlimes[1]);
+                battleManager.moveSelectUI(playerSlimes[1],spawner);
             }
         }
 
         if(battleQueue.Count==playerSlimes.Count){
             //Debug.Log("Enough moves selected");
             aISelectMoves();
-            useMoves(player, battleManager);
+            useMoves(player, battleManager,spawner);
         }
     }
 
-    public void selectMoveTarget(Player player,Move selectedMove,Slime selectedTarget,BattleManager battleManager){
+    public void selectMoveTarget(Player player,Move selectedMove,Slime selectedTarget,BattleManager battleManager,SlimeSpawnerHelper spawner){
         
         //Debug.Log("Select:"+selectedMove.moveName+" by |"+selectedMove.owner.speciesName+" Target: "+ selectedTarget.speciesName);
 
@@ -168,14 +177,14 @@ class Battle{
         if(battleQueue.Count<playerSlimes.Count){
             if(playerSlimes.Count==2){
                 //Debug.Log("ps2");
-                battleManager.moveSelectUI(playerSlimes[1]);
+                battleManager.moveSelectUI(playerSlimes[1],spawner);
             }
         }
 
         if(battleQueue.Count==playerSlimes.Count){
             //Debug.Log("Enough moves selected");
             aISelectMoves();
-            useMoves(player, battleManager);
+            useMoves(player, battleManager,spawner);
         }
 
 
@@ -186,8 +195,8 @@ class Battle{
     public void aISelectMoves(){
         //AI selects moves and enqueues them into the pq
         foreach (Slime s in enemySlimes){
-            Move m = s.moves[(int)Random.Range(0,s.moves.Length)]; //choose move randomly
-            m.setMoveTarget(playerSlimes[0]); // replace with actual logic for target selection
+            Move m = s.moves[(int)UnityEngine.Random.Range(0,s.moves.Length)]; //choose move randomly
+            m.setMoveTarget(playerSlimes[(int)UnityEngine.Random.Range(0,playerSlimes.Count)]); // replace with actual logic for target selection
             //Debug.Log("Enemy " + s.speciesName + " Slime Selected " + m.moveName + "Targeting: Your "+m.target.speciesName + " Slime");
             battleQueue.Enqueue(m,s.currentSpeed);
             
@@ -195,7 +204,7 @@ class Battle{
         
     }
 
-    public void useMoves(Player player,BattleManager battleManager){ //careful with the order
+   /*public void useMoves(Player player,BattleManager battleManager,SlimeSpawnerHelper spawner){ //careful with the order
         Move m;
         while(battleQueue.Count>0){
             m=(Move)battleQueue.Dequeue(); 
@@ -222,19 +231,25 @@ class Battle{
                         
                         player.removeSlime(player.team[player.team.IndexOf(playerSlimes[i])]);
                         playerSlimes.Remove(playerSlimes[i]);
+                        spawner.destroySlime(i);
+
+
+
                     }
                 }
             }
 
             for(int i=0; i<enemySlimes.Count; i++){
+                Debug.Log(i);
                 if(slimeDefeated(enemySlimes[i])){
                     if (enemySlimes.Contains(enemySlimes[i])){
 
-                        if(Random.Range(0,1)>0.5f){  //drop item
+                        if(UnityEngine.Random.Range(0,1)>0.5f){  //drop item
                             player.reciveItem(enemySlimes[i].speciesID);
                         }
 
                         enemySlimes.Remove(enemySlimes[i]);
+                        spawner.destroySlime(i+2);
                 }
                 }
             }
@@ -246,12 +261,25 @@ class Battle{
             if(!isBattleOver()){
                 //Debug.Log("Turn Over");
                 //End Turn abilities here
-                startTurn(player,battleManager);
+
+                if(battleManager.wait())
+                
+                startTurn(player,battleManager,spawner);
             }else{
+                for (int i=0; i<4; i++){
+                    spawner.destroySlime(i); 
+                }
+                
                 endBattle(player);
             }
             
+    }*/
+
+    public void useMoves(Player player,BattleManager battleManager,SlimeSpawnerHelper spawner){
+        battleOrder.useMoves(player,battleManager,spawner,this);
     }
+    
+
 
 
     public bool slimeDefeated(Slime checkedSlime){

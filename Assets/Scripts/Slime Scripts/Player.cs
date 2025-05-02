@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
-class Player{
+public class Player{
 
     public int maxOozeLevel;
     public int oozeLimit = 50;
@@ -10,7 +10,7 @@ class Player{
     public int currency =0;
     public int maxTeamCap = 12;
     public List<Slime> team = new List<Slime>();
-    public SerializedDictionary<Item, int> inventory = new SerializedDictionary<Item, int>();
+    SerializedDictionary<Item, int> inventory = new SerializedDictionary<Item, int>();
     
     public Player(){ //initial party of 4 water slimes
         maxOozeLevel = 5;

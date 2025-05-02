@@ -416,7 +416,8 @@ public class Move{
             case 51:
                 {
                     moveName = "Spoonful";
-                    moveType = "Self Heal"; //Uniqe       
+                    moveType = "Self Heal"; 
+                    healingValue = 6;
                 }
                 break;
             case 52:
@@ -434,6 +435,273 @@ public class Move{
                     attackMulti = 0.5F;       
                 }
                 break;
+            case 54:
+                {
+                    moveName = "Tasty Scoop";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Atk";      
+                    statChangeMulti = 1.4f;  
+                }
+                break;
+            case 55:
+                {
+                    moveName = "Summoning Circle";
+                    moveType = "Summon Circle"; //uniqe
+                     
+                }
+                break;
+            case 56:
+                {
+                    moveName = "Stardust Burst";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 0.4F;       
+                }
+                break;
+            case 57:
+                {
+                    moveName = "Practice";
+                    moveType = "Self Stat Change";   
+                    statChangeMulti=1.4f;   
+                    targetedStat = "Atk" ;        
+                }
+                break;
+            case 58:
+                {
+                    moveName = "Bite";
+                    moveType = "Attack"; 
+                    attackMulti = 1.7F;       
+                }
+                break;
+            case 59:
+                {
+                    moveName = "Burrow";
+                    moveType = "Opponents Stat Change";
+                    statChangeMulti = 0.80f;
+                    targetedStat = "Acc";            
+                }
+                break;
+            case 60:
+                {
+                    moveName = "Leap";
+                    moveType = "Self Stat Change";   
+                    statChangeMulti=1.5f;   
+                    targetedStat = "Spd" ;        
+                }
+                break;
+            case 61:
+                {
+                    moveName = "School Fish";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 1.2F;       
+                }
+                break;
+            case 62:
+                {
+                    moveName = "Eel Bite";
+                    moveType = "Attack"; 
+                    attackMulti = 1.7F;       
+                }
+                break;
+            case 63:
+                {
+                    moveName = "Fish Nibbles";
+                    moveType = "Attack"; 
+                    attackMulti = 0.1F;       
+                }
+                break;
+            case 64:
+                {
+                    moveName = "Glimmer";
+                    moveType = "Useless";        
+                }
+                break;
+            case 65:
+                {
+                    moveName = "Shine";
+                    moveType = "Useless";        
+                }
+                break;
+            case 66:
+                {
+                    moveName = "Shine";
+                    moveType = "Useless";        
+                }
+                break;
+            case 67:
+                {
+                    moveName = "Shine";
+                    moveType = "Useless";        
+                }
+                break;
+            case 68:
+                {
+                    moveName = "Investment";
+                    moveType = "Self Heal";
+                    healingValue = 10;               
+                }
+                break;
+            case 69:
+                {
+                    moveName = "Brighten Up";
+                    moveType = "Team Stat Change";
+                    targetedStat = "Acc" ;
+                    statChangeMulti = 1.6f;              
+                }
+                break;
+            case 70:
+                {
+                    moveName = "Trash";
+                    moveType = "Trash"; //uniqe
+                    attackMulti = 0.1F;
+                
+                }
+                break;
+            case 71:
+                {
+                    moveName = "Swallow";
+                    moveType = "Attack"; 
+                    attackMulti = 10.0F;       
+                }
+                break;
+            case 72:
+                {
+                    moveName = "Digest";
+                    moveType = "Useless";        
+                }
+                break;
+             case 73:
+                {
+                    moveName = "Mimic";
+                    moveType = "Mimic";        //uniqe
+                }
+                break;
+            case 74:
+                {
+                    moveName = "Meteor Shower";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 2.0F;       
+                }
+                break;
+            case 75:
+                {
+                    moveName = "Pie Throw";
+                    moveType = "Attack"; 
+                    attackMulti = 2.2F;       
+                }
+                break;
+            case 76:
+                {
+                    moveName = "Ballon Pop";
+                    moveType = "Attack"; 
+                    attackMulti = 0.4F;       
+                }
+                break;
+            case 77:
+                {
+                    moveName = "Clown tears";
+                    moveType = "Opponents Stat Change";
+                    statChangeMulti = 0.60f;
+                    targetedStat = "Atk";            
+                }
+                break;
+            case 78:
+                {
+                    moveName = "Hail Storm";
+                    element ="Ice";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 2.0F;       
+                }
+                break;
+            case 79:
+                {
+                    moveName = "Lightning Strike";
+                    element = "Lightning";
+                    moveType = "Attack"; 
+                    attackMulti = 3F;       
+                }
+                break;
+            case 80:
+                {
+                    moveName = "Mighty Winds";
+                    moveType = "Team Stat Change";
+                    targetedStat = "Spd" ;
+                    statChangeMulti = 1.5f;              
+                }
+                break;
+            case 81:
+                {
+                    moveName = "Shell Crack";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 0.4F;       
+                }
+                break;
+            case 82:
+                {
+                    moveName = "Tentacle Wrap";
+                    moveType = "Attack"; 
+                    attackMulti = 1.8F;       
+                }
+                break;
+            case 83:
+                {
+                    moveName = "Camouflage";
+                    moveType = "Self Stat Change";   
+                    statChangeMulti=2.5f;   
+                    targetedStat = "Atk" ;        
+                }
+                break;
+            case 84:
+                {
+                    moveName = "Inky Escape";
+                    moveType = "Stat Change"; 
+                    targetedStat = "Acc";      
+                    statChangeMulti = 0.8f;  
+                }
+                break;
+            case 85:
+                {
+                    moveName = "Forage";
+                    moveType = "Forage";   //uniqe
+                    statChangeMulti=1.4f;   
+                    targetedStat = "Atk" ;   
+                    healingValue = 8;     
+                }
+                break;
+            case 86:
+                {
+                    moveName = "Claw";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 0.6F;       
+                }
+                break;
+            case 87:
+                {
+                    moveName = "Alchemy";
+                    moveType = "Alchemy"; //uniqe     
+                }
+                break;
+            case 88:
+                {
+                    moveName = "Bounce";
+                    moveType = "Attack Opponents"; 
+                    attackMulti = 0.8F;       
+                }
+                break;
+            case 89:
+                {
+                    moveName = "Belly Slam";
+                    moveType = "Attack"; 
+                    attackMulti = 1.8F;       
+                }
+                break;
+            case 90:
+                {
+                    moveName = "Snack Time";
+                    moveType = "Self Heal"; 
+                    healingValue = 4;      
+                }
+                break;
+
             
 
 
@@ -441,6 +709,7 @@ public class Move{
                     moveName = "Struggle";
                     moveType = "Useless";
                 break;
+            
 
 
         }
@@ -456,10 +725,10 @@ public class Move{
             return false;
         }
         Debug.Log(this.owner.speciesName + " Slime used " + this.moveName);
-        useMove(pSlimes,eSlimes);
+        //useMove(pSlimes,eSlimes);
         return true;
     }
-    public void useMove(List<Slime> pSlimes,List<Slime> eSlimes){
+    public void useMove(List<Slime> pSlimes,List<Slime> eSlimes,BattleManager bm){
 
         
 
@@ -467,42 +736,42 @@ public class Move{
         switch(moveType){
 
             case "Attack":
-                target.takeDamage((int) (owner.currentAttack * attackMulti));
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
                 break;
             case "Double Attack":
-                target.takeDamage((int) (owner.currentAttack * attackMulti));
-                target.takeDamage((int) (owner.currentAttack * attackMulti));
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
                 break;
             case "Self Heal":
-                owner.healDamage(healingValue);
+                owner.healDamage(healingValue,bm);
                 break;
 
             case "Heal":
-                target.healDamage(healingValue);
+                target.healDamage(healingValue,bm);
                 break;
 
             case "Self Stat Change":
-                owner.changeStat(statChangeMulti,targetedStat);
+                owner.changeStat(statChangeMulti,targetedStat,bm);
                 break;
             case "Stat Change":
-                target.changeStat(statChangeMulti,targetedStat);
+                target.changeStat(statChangeMulti,targetedStat,bm);
                 break;
             case "Self Destruct":
-                owner.takeDamage(owner.currentHP);
+                owner.takeDamage(owner.currentHP,bm);
                 break;
             case "Full Heal":
-                owner.healDamage(owner.damageTaken);
+                owner.healDamage(owner.damageTaken,bm);
                 break;
             case "Team Stat Change":
                 for(int i=0; i<pSlimes.Count;i++){
                     target = pSlimes[i];
-                    target.changeStat(statChangeMulti,targetedStat);
+                    target.changeStat(statChangeMulti,targetedStat,bm);
                 }
                 break;
             case "Team Heal":
                 for(int i=0; i<pSlimes.Count;i++){
                     target = pSlimes[i];
-                    target.healDamage(healingValue);
+                    target.healDamage(healingValue,bm);
                 }
                 
                 break;
@@ -513,20 +782,20 @@ public class Move{
             case "Attack Opponents":
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.takeDamage((int) (owner.currentAttack * attackMulti));
+                    target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
                 }
                 break;
 
             case "Opponents Stat Change":
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.changeStat(statChangeMulti,targetedStat);
+                    target.changeStat(statChangeMulti,targetedStat,bm);
                 }
                 break;
             case "Heal Opponents": //just covering all cases
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.healDamage(healingValue);
+                    target.healDamage(healingValue,bm);
                 }   
                 break;
 
@@ -535,54 +804,54 @@ public class Move{
             case "Attack Others":
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.takeDamage((int) (owner.currentAttack * attackMulti));
+                    target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
                 }   
                 for(int i=0; i<pSlimes.Count;i++){
                     target = pSlimes[i];
                     if(!target.Equals(owner))
-                        target.takeDamage((int) (owner.currentAttack * attackMulti));
+                        target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
                 }   
                 break;
             
             case "Heal All":
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.healDamage(healingValue);
+                    target.healDamage(healingValue,bm);
                 }   
                 for(int i=0; i<pSlimes.Count;i++){
                     target = pSlimes[i];
-                    target.healDamage(healingValue);
+                    target.healDamage(healingValue,bm);
                 }   
                 break;
 
             case "Others Stat Change":
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.changeStat(statChangeMulti,targetedStat);
+                    target.changeStat(statChangeMulti,targetedStat,bm);
                 }   
                 for(int i=0; i<pSlimes.Count;i++){
                     target = pSlimes[i];
                     if(!target.Equals(owner))
-                        target.changeStat(statChangeMulti,targetedStat);
+                        target.changeStat(statChangeMulti,targetedStat,bm);
                 }   
                 break;
             case "Self Destruct And Damage":
                 
                 for(int i=0; i<eSlimes.Count;i++){
                     target = eSlimes[i];
-                    target.takeDamage((int) (owner.currentAttack * attackMulti));
+                    target.takeDamage((int) (owner.currentAttack * attackMulti), bm);
                 }   
                 for(int i=0; i<pSlimes.Count;i++){
                     target = pSlimes[i];
                     if(!target.Equals(owner))
-                        target.takeDamage((int) (owner.currentAttack * attackMulti));
+                        target.takeDamage((int) (owner.currentAttack * attackMulti), bm);
                 }   
-                owner.takeDamage(owner.currentHP);
+                owner.takeDamage(owner.currentHP, bm);
 
                 break;
             //Special Moves
             case "Splash":
-                target.takeDamage((int) (owner.currentAttack * attackMulti));
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
                 //chang to water slime
                 break;
             default:
