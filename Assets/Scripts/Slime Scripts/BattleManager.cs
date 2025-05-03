@@ -320,6 +320,7 @@ public class BattleManager : MonoBehaviour
         // This is particularly good for creating loading screens.
         // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
         // a sceneBuildIndex of 1 as shown in Build Settings.
+        yield return new WaitForSeconds(3);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
 

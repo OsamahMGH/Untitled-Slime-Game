@@ -69,6 +69,8 @@ public class Battle{
     public  Battle(Player player,Slime allySlime1,string currentStage,BattleOrder bo,bool bossFight=false){
         oLvl = player.maxOozeLevel;
 
+        initilizeLists();
+
         playerSlimes.Add(allySlime1);
         playerSlimes.Add(generateSlime(currentStage));
         enemySlimes.Add(generateSlime(currentStage));

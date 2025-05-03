@@ -31,6 +31,7 @@ public class FirstPersonLook : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)){
             Cursor.lockState = CursorLockMode.None;
             disabled=true;
+            
             }
 
         if (Input.GetKey(KeyCode.E)){
