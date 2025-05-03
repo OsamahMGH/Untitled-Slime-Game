@@ -22,15 +22,31 @@ public class Battle{
     public int oLvl=0;
 
     BattleOrder battleOrder;
+    GameObject stageTeleporter;
+
+    public List<int> forestSlimes = new List<int>();
+    public List<int> rareForestSlimes = new List<int>();
+    public List<int> fallSlimes = new List<int>();
+    public List<int> rareFallSlimes = new List<int>();
+    public List<int> winterSlimes = new List<int>();
+    public List<int> rareWinterSlimes = new List<int>();
+    public List<int> citySlimes = new List<int>();
+    public List<int> rareCitySlimes = new List<int>();
+    public List<int> islandSlimes = new List<int>();
+    public List<int> rareIslandSlimes = new List<int>();
+    public List<int> castleSlimes = new List<int>();
+    public List<int> rareCastleSlimes = new List<int>();
     
 
 
-    public  Battle(Player player,Slime allySlime1, Slime allySlime2, Slime enemySlime1, Slime enemySlime2,string currentStage,BattleOrder bo){
+    public  Battle(Player player,Slime allySlime1, Slime allySlime2,string currentStage,BattleOrder bo){
+
+        initilizeLists();
 
         playerSlimes.Add(allySlime1);
         playerSlimes.Add(allySlime2);
-        enemySlimes.Add(enemySlime1);
-        enemySlimes.Add(enemySlime2);
+        enemySlimes.Add(generateSlime(currentStage));
+        enemySlimes.Add(generateSlime(currentStage));
 
         stage = currentStage;
 
@@ -39,26 +55,279 @@ public class Battle{
 
     }
 
-    public  Battle(Player player,Slime slime1, Slime slime2, Slime slime3,string currentStage,BattleOrder bo){
+    public  Battle(Player player,Slime allySlime1,string currentStage,BattleOrder bo){
 
-        playerSlimes.Add(slime1);
-        playerSlimes.Add(slime2);
-        enemySlimes.Add(slime3);
+        playerSlimes.Add(allySlime1);
+        playerSlimes.Add(generateSlime(currentStage));
+        enemySlimes.Add(generateSlime(currentStage));
         stage = currentStage;
+        battleOrder = bo;
+
+
+    }
+
+    void initilizeLists(){
+        //forest
+        { 
+            forestSlimes.Add(1);
+            forestSlimes.Add(3);
+            forestSlimes.Add(4);
+            forestSlimes.Add(6);
+            forestSlimes.Add(8);
+            forestSlimes.Add(10);
+           
+            forestSlimes.Add(18);
+            forestSlimes.Add(21);
+            forestSlimes.Add(22);
+            forestSlimes.Add(23);
+            forestSlimes.Add(26);
+            forestSlimes.Add(29);
+
+            rareForestSlimes.Add(12);
+            rareForestSlimes.Add(28);
+            rareForestSlimes.Add(30);
+            rareForestSlimes.Add(31);
+            rareForestSlimes.Add(32);
+            rareForestSlimes.Add(33);
+            rareForestSlimes.Add(34);
+            
+        }
+
+        //forest 2 (fall)
+        { 
+            fallSlimes.Add(1);
+            fallSlimes.Add(2);
+            fallSlimes.Add(3);
+            fallSlimes.Add(4);
+            forestSlimes.Add(6);
+            fallSlimes.Add(8);
+            fallSlimes.Add(10);
+            fallSlimes.Add(12);
+            fallSlimes.Add(18);
+            fallSlimes.Add(21);
+            fallSlimes.Add(22);
+
+            rareFallSlimes.Add(7);
+            rareFallSlimes.Add(11);
+            rareFallSlimes.Add(20);
+            rareFallSlimes.Add(28);
+            rareFallSlimes.Add(30);
+            rareFallSlimes.Add(32);
+            rareFallSlimes.Add(33);
+            rareFallSlimes.Add(34);
+            
+        }
+
+        //Winter
+        {
+            winterSlimes.Add(3);
+            winterSlimes.Add(4);
+            winterSlimes.Add(5);
+            winterSlimes.Add(6);
+            winterSlimes.Add(7);
+            winterSlimes.Add(9);
+            winterSlimes.Add(9);
+            winterSlimes.Add(11);
+            winterSlimes.Add(17);
+            winterSlimes.Add(18);
+            winterSlimes.Add(20);
+            winterSlimes.Add(21);
+            winterSlimes.Add(28);
+            winterSlimes.Add(29);
+            
+            
+            
+            rareWinterSlimes.Add(5);
+            rareWinterSlimes.Add(1);
+            rareWinterSlimes.Add(30);
+            rareWinterSlimes.Add(32);
+            rareWinterSlimes.Add(33);
+            rareWinterSlimes.Add(34);
+            rareWinterSlimes.Add(24);
+            rareWinterSlimes.Add(24);
+            rareWinterSlimes.Add(24);
+            rareWinterSlimes.Add(26);
+            rareWinterSlimes.Add(22);
+
+        }
+
+        //City
+        {
+            citySlimes.Add(1);
+            citySlimes.Add(2);
+            citySlimes.Add(4);
+            citySlimes.Add(6);
+            citySlimes.Add(7);
+            citySlimes.Add(8);
+            citySlimes.Add(10);
+            citySlimes.Add(11);
+            citySlimes.Add(18);
+            citySlimes.Add(20);
+            citySlimes.Add(28);
+            citySlimes.Add(31);
+            citySlimes.Add(31);
+            citySlimes.Add(31);
+            
+
+
+            rareCitySlimes.Add(12);
+            rareCitySlimes.Add(29);
+            rareCitySlimes.Add(30);
+            rareCitySlimes.Add(14);
+            rareCitySlimes.Add(17);
+            rareCitySlimes.Add(19);
+            rareCitySlimes.Add(22);
+            rareCitySlimes.Add(23);
+            rareCitySlimes.Add(32);
+            rareCitySlimes.Add(33);
+            rareCitySlimes.Add(34);
+            rareCitySlimes.Add(16);
+
+        }
+
+        //Island
+        {
+            islandSlimes.Add(1);
+            islandSlimes.Add(2);
+            islandSlimes.Add(6);
+            islandSlimes.Add(11);
+            islandSlimes.Add(13);
+            islandSlimes.Add(13);
+            islandSlimes.Add(14); 
+            islandSlimes.Add(20);
+            islandSlimes.Add(27);
+            islandSlimes.Add(28);
+            islandSlimes.Add(28);
+
+            rareIslandSlimes.Add(3);
+            rareIslandSlimes.Add(4);
+            rareIslandSlimes.Add(7);
+            rareIslandSlimes.Add(19);
+            rareIslandSlimes.Add(30);
+            rareIslandSlimes.Add(32);
+            rareIslandSlimes.Add(33);
+            rareIslandSlimes.Add(34);
+
+        }
+
+        //Castle
+        {
+            castleSlimes.Add(1);
+            castleSlimes.Add(2);
+            castleSlimes.Add(2);
+            castleSlimes.Add(3);
+            castleSlimes.Add(4);
+            castleSlimes.Add(7);
+            castleSlimes.Add(10);
+            castleSlimes.Add(11);
+            castleSlimes.Add(15);
+            castleSlimes.Add(16);
+            castleSlimes.Add(17);
+            castleSlimes.Add(19);
+            castleSlimes.Add(25);
+            castleSlimes.Add(25);
+            castleSlimes.Add(29);
+            castleSlimes.Add(29);
+
+            rareCastleSlimes.Add(18);
+            rareCastleSlimes.Add(12);
+            rareCastleSlimes.Add(30);
+            rareCastleSlimes.Add(32);
+            rareCastleSlimes.Add(33);
+            rareCastleSlimes.Add(34);
+            rareCastleSlimes.Add(34);
+        }
+
 
 
 
     }
-    public  Battle(Player player,Slime slime1, Slime slime2,string currentStage,BattleOrder bo){
 
-        playerSlimes.Add(slime1);
-        enemySlimes.Add(slime2);
-        stage = currentStage;
+
+    public Slime generateSlime(string stage){
+
+        Slime s;
+
+        bool rareSpawn = false;
+        if(UnityEngine.Random.Range(0,1.0f)>0.92f){
+            rareSpawn=true;
+        }
+        switch(stage){
+
+            case "Forest":
+                if(!rareSpawn){
+                    s= new Slime(forestSlimes[UnityEngine.Random.Range(0,forestSlimes.Count)]);
+                } else{
+                     s= new Slime(rareForestSlimes[UnityEngine.Random.Range(0,rareForestSlimes.Count)]);
+                }
+
+                break;
+                
+
+            case "Fall":
+
+                if(!rareSpawn){
+                    s= new Slime(fallSlimes[UnityEngine.Random.Range(0,fallSlimes.Count)]);
+                } else{
+                     s= new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)]);
+                }
+
+                break;
+                
+
+            case "Winter":
+
+                if(!rareSpawn){
+                    s= new Slime(winterSlimes[UnityEngine.Random.Range(0,winterSlimes.Count)]);
+                } else{
+                     s= new Slime(rareWinterSlimes[UnityEngine.Random.Range(0,rareWinterSlimes.Count)]);
+                }
+
+                break;
+                
+            case "Island":
+                if(!rareSpawn){
+                    s= new Slime(islandSlimes[UnityEngine.Random.Range(0,islandSlimes.Count)]);
+                } else{
+                     s= new Slime(rareIslandSlimes[UnityEngine.Random.Range(0,rareIslandSlimes.Count)]);
+                }
+               
+                break;
+
+            case "City":
+                if(!rareSpawn){
+                    s= new Slime(citySlimes[UnityEngine.Random.Range(0,citySlimes.Count)]);
+                } else{
+                     s= new Slime(rareCitySlimes[UnityEngine.Random.Range(0,rareCitySlimes.Count)]);
+                }
+                
+                break;
+            case "Castle":
+                if(!rareSpawn){
+                    s= new Slime(castleSlimes[UnityEngine.Random.Range(0,castleSlimes.Count)]);
+                } else{
+                     s= new Slime(rareCastleSlimes[UnityEngine.Random.Range(0,rareCastleSlimes.Count)]);
+                }
+                
+                break;
+
+            default:
+                s = new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)]);
+                break;
+
+
+        }
+
+        return s;
     }
 
+    void setTeleporter(GameObject teleporter){
+            stageTeleporter = teleporter;
+    }
    
-    public void startBattle(Player player, BattleManager battleManager,SlimeSpawnerHelper spawner){
+    public void startBattle(Player player, BattleManager battleManager,SlimeSpawnerHelper spawner,GameObject teleporter){
         oLvl = player.maxOozeLevel;
+        setTeleporter(teleporter);
         for (int i=0;i<playerSlimes.Count;i++){
             spawner.spawnSlime(playerSlimes[i].speciesID,i,stage);
         }
@@ -91,6 +360,7 @@ public class Battle{
             Debug.Log("You lost :(");
         } else{
             Debug.Log("You Won :D");
+            stageTeleporter.gameObject.SetActive(true);
             player.receiveCurrency((int) UnityEngine.Random.Range(0,oLvl));
             player.resetTeam();
         }

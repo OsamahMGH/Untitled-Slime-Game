@@ -25,8 +25,19 @@ public class BattleManager : MonoBehaviour
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){ ////// commented to prevent auto battle starting
-        currentBattle = new Battle(player,(Slime)player.team[0],(Slime)player.team[1],new Slime(2), new Slime(3),"Forest",bo);
-        currentBattle.startBattle(player,this,spawner);
+        /*currentBattle = new Battle(player,(Slime)player.team[0],(Slime)player.team[1],new Slime(2), new Slime(3),"Forest",bo);
+        currentBattle.startBattle(player,this,spawner);*/
+
+    }
+
+    public void startEncouter(string stage,GameObject teleporter){
+        if(player.team.Count>=2){
+            currentBattle = new Battle(player,player.team[0],player.team[1],stage,bo);
+            currentBattle.startBattle(player,this,spawner,teleporter);
+        }else {
+            currentBattle = new Battle(player,player.team[0],stage,bo);
+            currentBattle.startBattle(player,this,spawner,teleporter);
+        }
 
     }
 

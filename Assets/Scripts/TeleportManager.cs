@@ -13,6 +13,7 @@ public class TeleportManager : MonoBehaviour
     [Header("Area Spawn Points (0=Winter, 1=Island, 2=Forest, 3=Forest2, 4=City)")]
     [Tooltip("Drag your 5 spawn-point Transforms here")]
     public Transform[] spawnPoints;
+    public Transform castleSpawnPoint;
 
     [Header("UI")]
     [Tooltip("Drag the UI Text component that shows the score")]
@@ -34,8 +35,14 @@ public class TeleportManager : MonoBehaviour
     public void TeleportToNextArea()
     {
         // if you've visited all 5, refill the list so it can go again
-        if (unvisitedAreas.Count == 0)
-            ResetAreaList();
+        if (unvisitedAreas.Count == 0){
+             ResetAreaList();
+             player.SetPositionAndRotation(castleSpawnPoint.position, castleSpawnPoint.rotation);
+             score++;
+            UpdateScoreUI();
+            return;
+        }
+           
 
         // pick & remove a random index
         int listIdx  = Random.Range(0, unvisitedAreas.Count);
@@ -44,8 +51,7 @@ public class TeleportManager : MonoBehaviour
 
         // teleport the player
         Transform sp = spawnPoints[nextArea];
-        player.position = sp.position;
-        player.rotation = sp.rotation;
+        player.SetPositionAndRotation(sp.position, sp.rotation);
 
         // bump the score and update UI
         score++;

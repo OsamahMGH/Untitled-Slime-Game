@@ -16,7 +16,8 @@ public class SlimeSpawnerHelper : MonoBehaviour
     winter0,winter1,winter2,winter3,
     forest0,forest1,forest2,forest3,
     city0,city1,city2,city3,
-    island0,island1,island2,island3;
+    island0,island1,island2,island3,
+    castle0, castle1, castle2, castle3;
     //string str = "test";
     GameObject s0,s1,s2,s3;
 
@@ -116,6 +117,25 @@ public class SlimeSpawnerHelper : MonoBehaviour
                         break;
                     case 3:
                         s3 = spawnSlime(id,city3);
+                        s3.transform.Rotate(0f,180f,0f);
+                        break;
+                }
+                break;
+
+                 case "Castle":
+                switch(pos){
+                    case 0:
+                        s0 = spawnSlime(id,castle0);
+                        break;
+                    case 1:
+                        s1 = spawnSlime(id,castle1);
+                        break;
+                    case 2:
+                        s2 = spawnSlime(id,castle2);
+                        s2.transform.Rotate(0f,180f,0f);
+                        break;
+                    case 3:
+                        s3 = spawnSlime(id,castle3);
                         s3.transform.Rotate(0f,180f,0f);
                         break;
                 }
