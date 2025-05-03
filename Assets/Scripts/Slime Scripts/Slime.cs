@@ -477,14 +477,21 @@ public class Slime {
             accuracy = 0.55F;
     }
 
-    public void increaseOoze(int addedOoze){
+    public void increaseOoze(int addedOoze,BattleManager bm){
+
+
+        if(addedOoze>0){
+            bm.bo.displayNotification(bm,1.5f,"Your " + speciesName + " Slime Increased it's Ooze. It has become stronger!");
 
         oozeLevel+=addedOoze;
-
+        float hpPercentage = currentHP/maxHP;
         maxHP = hitPointModifier * oozeLevel;
+        currentHP = (int)(hpPercentage * maxHP);
         baseAttack = attackModifier * oozeLevel;
         currentAttack = baseAttack;
 
+        }
+        
     }
     
     

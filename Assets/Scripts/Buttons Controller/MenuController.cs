@@ -12,6 +12,7 @@ public class MenuController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         
         if (PlayerPrefs.HasKey("Volume"))
         {

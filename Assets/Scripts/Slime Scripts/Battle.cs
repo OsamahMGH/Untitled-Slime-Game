@@ -69,6 +69,8 @@ public class Battle{
     public  Battle(Player player,Slime allySlime1,string currentStage,BattleOrder bo,bool bossFight=false){
         oLvl = player.maxOozeLevel;
 
+        initilizeLists();
+
         playerSlimes.Add(allySlime1);
         playerSlimes.Add(generateSlime(currentStage));
         enemySlimes.Add(generateSlime(currentStage));
@@ -488,8 +490,9 @@ public class Battle{
         
     }
 
-    public int consumeOoze(){
+    public int consumeOoze(BattleManager bm){
         if(oLvl<=0){
+            bm.bo.displayNotification(bm,1f,"You are out of Ooze.");
              Debug.Log("You don't have enough Ooze :(");
             return 0;
         }
