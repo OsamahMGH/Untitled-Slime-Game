@@ -50,7 +50,56 @@ class Item{
                 itemName = "Ash";
                 itemCatagory = "Dropped";
                 break;
+            case 11:
+                itemName = "Iron";
+                itemCatagory = "Dropped";
+                break;
+            case 12:
+                itemName = "Wild Mushrooms";
+                itemCatagory = "Dropped";
+                break;
+            case 13:
+                itemName = "Beach Sand";
+                itemCatagory = "Dropped";
+                break;
+            case 14:
+                itemName = "Soap";
+                itemCatagory = "Dropped";
+                break;
+            case 20:
+                itemName = "Petrol Oil";
+                itemCatagory = "Dropped";
+                break;
+            case 21:
+                itemName = "Mossy Log";
+                itemCatagory = "Dropped";
+                break;
+            case 22:
+                itemName = "Sweet Honey";
+                itemCatagory = "Dropped";
+                break;
+            case 23:
+                itemName = "Juicy Fruit";
+                itemCatagory = "Dropped";
+                break;
+            case 25:
+                itemName = "Migical Degree";
+                itemCatagory = "Dropped";
+                break;
+            case 26:
+                itemName = "Rabbit Foot";
+                itemCatagory = "Dropped";
+                break;
+            case 27:
+                itemName = "Dried Coral";
+                itemCatagory = "Dropped";
+                break;
+            case 31:
+                itemName = "Litter";
+                itemCatagory = "Dropped";
+                break;
             default:
+                itemID =1;
                 itemName = "Spring water";
                 itemCatagory = "Dropped";
                 break;

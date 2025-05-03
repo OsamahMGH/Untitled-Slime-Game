@@ -17,7 +17,7 @@ public class FinishArea : MonoBehaviour
             teleporter.TeleportToNextArea();
             
             stageTrigger.gameObject.SetActive(true);
-            Debug.Log(gameObject.name);
+           //Debug.Log(gameObject.name);
             gameObject.SetActive(false);
             
     }

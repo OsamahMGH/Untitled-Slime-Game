@@ -247,7 +247,7 @@ public class SlimeSpawnerHelper : MonoBehaviour
 
     public void destroySlime(int pos){
 
-        Debug.Log("Destroy "+pos);
+        //Debug.Log("Destroy "+pos);
 
         switch(pos){
             case 0:

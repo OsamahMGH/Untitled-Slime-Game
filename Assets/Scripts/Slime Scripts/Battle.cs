@@ -40,6 +40,7 @@ public class Battle{
 
 
     public  Battle(Player player,Slime allySlime1, Slime allySlime2,string currentStage,BattleOrder bo){
+        oLvl = player.maxOozeLevel;
 
         initilizeLists();
 
@@ -52,10 +53,13 @@ public class Battle{
 
         battleOrder = bo;
 
+        
+
 
     }
 
     public  Battle(Player player,Slime allySlime1,string currentStage,BattleOrder bo){
+        oLvl = player.maxOozeLevel;
 
         playerSlimes.Add(allySlime1);
         playerSlimes.Add(generateSlime(currentStage));
@@ -256,9 +260,9 @@ public class Battle{
 
             case "Forest":
                 if(!rareSpawn){
-                    s= new Slime(forestSlimes[UnityEngine.Random.Range(0,forestSlimes.Count)]);
+                    s= new Slime(forestSlimes[UnityEngine.Random.Range(0,forestSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareForestSlimes[UnityEngine.Random.Range(0,rareForestSlimes.Count)]);
+                     s= new Slime(rareForestSlimes[UnityEngine.Random.Range(0,rareForestSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
 
                 break;
@@ -267,9 +271,9 @@ public class Battle{
             case "Fall":
 
                 if(!rareSpawn){
-                    s= new Slime(fallSlimes[UnityEngine.Random.Range(0,fallSlimes.Count)]);
+                    s= new Slime(fallSlimes[UnityEngine.Random.Range(0,fallSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)]);
+                     s= new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
 
                 break;
@@ -278,46 +282,47 @@ public class Battle{
             case "Winter":
 
                 if(!rareSpawn){
-                    s= new Slime(winterSlimes[UnityEngine.Random.Range(0,winterSlimes.Count)]);
+                    s= new Slime(winterSlimes[UnityEngine.Random.Range(0,winterSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareWinterSlimes[UnityEngine.Random.Range(0,rareWinterSlimes.Count)]);
+                     s= new Slime(rareWinterSlimes[UnityEngine.Random.Range(0,rareWinterSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
 
                 break;
                 
             case "Island":
                 if(!rareSpawn){
-                    s= new Slime(islandSlimes[UnityEngine.Random.Range(0,islandSlimes.Count)]);
+                    s= new Slime(islandSlimes[UnityEngine.Random.Range(0,islandSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareIslandSlimes[UnityEngine.Random.Range(0,rareIslandSlimes.Count)]);
+                     s= new Slime(rareIslandSlimes[UnityEngine.Random.Range(0,rareIslandSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
                
                 break;
 
             case "City":
                 if(!rareSpawn){
-                    s= new Slime(citySlimes[UnityEngine.Random.Range(0,citySlimes.Count)]);
+                    s= new Slime(citySlimes[UnityEngine.Random.Range(0,citySlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareCitySlimes[UnityEngine.Random.Range(0,rareCitySlimes.Count)]);
+                     s= new Slime(rareCitySlimes[UnityEngine.Random.Range(0,rareCitySlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
                 
                 break;
             case "Castle":
                 if(!rareSpawn){
-                    s= new Slime(castleSlimes[UnityEngine.Random.Range(0,castleSlimes.Count)]);
+                    s= new Slime(castleSlimes[UnityEngine.Random.Range(0,castleSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareCastleSlimes[UnityEngine.Random.Range(0,rareCastleSlimes.Count)]);
+                     s= new Slime(rareCastleSlimes[UnityEngine.Random.Range(0,rareCastleSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
                 
                 break;
 
             default:
-                s = new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)]);
+                s = new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 break;
 
 
         }
 
+        
         return s;
     }
 
@@ -326,22 +331,48 @@ public class Battle{
     }
    
     public void startBattle(Player player, BattleManager battleManager,SlimeSpawnerHelper spawner,GameObject teleporter){
-        oLvl = player.maxOozeLevel;
         setTeleporter(teleporter);
         for (int i=0;i<playerSlimes.Count;i++){
             spawner.spawnSlime(playerSlimes[i].speciesID,i,stage);
+            battleManager.healthPointsUI(playerSlimes[i],i);
         }
         for (int i=0;i<enemySlimes.Count;i++){
             spawner.spawnSlime(enemySlimes[i].speciesID,i+2,stage);
+            battleManager.healthPointsUI(enemySlimes[i],i+2);
         }
+
+        
 
         //start battle abilities here
         Debug.Log("Battle Started");
-        //while(oLvl>0 && player.inventory.Count>0 && player.team.Count<player.team.Capacity){ //preperation
-            //(UI)consume item and one Ooze to create a slime 
+        int attempt=0;
+        int j=0;
+        int itemKey;
+        while(oLvl>0 && player.getInventorySize()>0 && player.team.Count<player.team.Capacity && attempt<=5){ //preperation
+            attempt++;
+            if(UnityEngine.Random.Range(0f,1f)>0.1){
+                //Debug.Log("check");
+                j=0;
+                
+                
+                do{
+                     itemKey= (int)UnityEngine.Random.Range(0f,31f);
+                     j++;
+                } while (!player.consumeItem(itemKey) && j<=5);
+                
+                if(j<=5){
+                    if(player.addSlime(new Slime(itemKey))){
+                        battleManager.bo.displayNotification(battleManager,1.5f,"A " + new Slime(itemKey).speciesName + " Slime has joined your party");
+                        oLvl--;
+                    } else{
+                        battleManager.bo.displayNotification(battleManager,1.5f, "A "+ new Slime(itemKey).speciesName + " Slime tried joined your party, but did'nt like how crowdy it is");
 
-            //(UI)can continue before hitting limit
-        //}
+                    }
+                    
+                }
+                
+            }
+        }
         startTurn(player, battleManager,spawner);
         
     }
@@ -355,10 +386,14 @@ public class Battle{
 
     }
 
-    public void endBattle(Player player){
+    public void endBattle(Player player,BattleManager battleManager){
         if(playerSlimes.Count<=0){
+        battleManager.bo.displayNotification(battleManager,1.5f,"You Lost :(");
+
             Debug.Log("You lost :(");
+            stageTeleporter.gameObject.SetActive(true);
         } else{
+            battleManager.bo.displayNotification(battleManager,1.5f,"You Won :D");
             Debug.Log("You Won :D");
             stageTeleporter.gameObject.SetActive(true);
             player.receiveCurrency((int) UnityEngine.Random.Range(0,oLvl));
@@ -379,7 +414,7 @@ public class Battle{
 
     public bool isBattleOver(){
         if(playerSlimes.Count<=0 || enemySlimes.Count<=0){ //two different cases
-            Debug.Log("Battle Over");
+            //Debug.Log("Battle Over");
             return true;
         }
 
@@ -409,7 +444,7 @@ public class Battle{
 
 
 
-        if(Move.singleTargetMoves.Contains(selectedMove.moveType)){ //if it is a single target move, the player must select a target through the UI
+        if(Move.singleTargetMovesNegative.Contains(selectedMove.moveType)){ //if it is a single target move, the player must select a target through the UI
             battleManager.selectMoveTargetUI(playerSlimes,enemySlimes,selectedMove,spawner);
             return;
         }
@@ -466,7 +501,11 @@ public class Battle{
         //AI selects moves and enqueues them into the pq
         foreach (Slime s in enemySlimes){
             Move m = s.moves[(int)UnityEngine.Random.Range(0,s.moves.Length)]; //choose move randomly
-            m.setMoveTarget(playerSlimes[(int)UnityEngine.Random.Range(0,playerSlimes.Count)]); // replace with actual logic for target selection
+            if(Move.singleTargetMovesNegative.Contains(m.moveType)){
+                m.setMoveTarget(playerSlimes[(int)UnityEngine.Random.Range(0,playerSlimes.Count)]); 
+            } else if(Move.singleTargetMovesPositive.Contains(m.moveType)){
+                m.setMoveTarget(enemySlimes[(int)UnityEngine.Random.Range(0,enemySlimes.Count)]); 
+            }
             //Debug.Log("Enemy " + s.speciesName + " Slime Selected " + m.moveName + "Targeting: Your "+m.target.speciesName + " Slime");
             battleQueue.Enqueue(m,s.currentSpeed);
             
@@ -514,9 +553,7 @@ public class Battle{
                 if(slimeDefeated(enemySlimes[i])){
                     if (enemySlimes.Contains(enemySlimes[i])){
 
-                        if(UnityEngine.Random.Range(0,1)>0.5f){  //drop item
-                            player.reciveItem(enemySlimes[i].speciesID);
-                        }
+                        
 
                         enemySlimes.Remove(enemySlimes[i]);
                         spawner.destroySlime(i+2);

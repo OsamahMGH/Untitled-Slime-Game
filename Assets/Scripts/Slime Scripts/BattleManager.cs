@@ -19,9 +19,12 @@ public class BattleManager : MonoBehaviour
     public Image textPanel;
     public SlimeSpawnerHelper spawner;
     public BattleOrder bo;
+    Image hP0,hP1, hP2,hP3; 
+    public Image hpPrefab;
+    public Image healthPointPanel;
     
     Battle currentBattle;
-    Player player = new Player();
+    public Player player = new Player();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){ ////// commented to prevent auto battle starting
@@ -41,6 +44,55 @@ public class BattleManager : MonoBehaviour
 
     }
 
+    public void healthPointsUI(Slime s, int pos){
+
+        healthPointPanel.gameObject.SetActive(true);
+        
+        switch(pos){
+            case 0:
+                hP0=Instantiate(hpPrefab,  new Vector3(-51,52,0), transform.rotation);
+                hP0.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                hP0.transform.SetParent(healthPointPanel.transform,false);
+                break;
+            case 1:
+                hP1=Instantiate(hpPrefab,  new Vector3(56,52,0), transform.rotation);
+                hP1.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                hP1.transform.SetParent(healthPointPanel.transform,false);
+                break;
+            case 2:
+                hP2=Instantiate(hpPrefab,  new Vector3(-51,136,0), transform.rotation);
+                hP2.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                hP2.transform.SetParent(healthPointPanel.transform,false);
+                break;
+            case 3:
+                hP3=Instantiate(hpPrefab,  new Vector3(56,136,0), transform.rotation);
+                hP3.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                hP3.transform.SetParent(healthPointPanel.transform,false);
+                break;
+        }
+        
+        
+        
+    }
+
+    public void updateHealthPointsUI(Slime s,int pos){
+        switch(pos){
+            case 0:
+                hP0.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                break;
+            case 1:
+                hP1.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                break;
+            case 2:
+                hP2.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                break;
+            case 3:
+                hP3.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                break;
+        }
+
+    }
+
     public void moveSelectUI(Slime s,SlimeSpawnerHelper spawner){ 
 
         moveSelectPanel.gameObject.SetActive(true);
@@ -49,19 +101,19 @@ public class BattleManager : MonoBehaviour
         Image msbg;
         
 
-        msbg= Instantiate(moveSelectBGPrefab,  new Vector3(10,90,0), transform.rotation); 
+        msbg= Instantiate(moveSelectBGPrefab,  new Vector3(-210,90,0), transform.rotation); 
         msbg.transform.SetParent(moveSelectPanel.transform,false);
 
-        bt1 = Instantiate(moveButtonPrefab,  new Vector3(96,115,0), transform.rotation);
-        bt2 = Instantiate(moveButtonPrefab,  new Vector3(-76,115,0), transform.rotation);
-        bt3 = Instantiate(moveButtonPrefab,  new Vector3(-76,70,0), transform.rotation); 
-        addOButton= Instantiate(moveButtonPrefab,  new Vector3(96,70,0), transform.rotation);       
+        bt1 = Instantiate(moveButtonPrefab,  new Vector3(-120,115,0), transform.rotation);
+        bt2 = Instantiate(moveButtonPrefab,  new Vector3(-292,115,0), transform.rotation);
+        bt3 = Instantiate(moveButtonPrefab,  new Vector3(-292,70,0), transform.rotation); 
+        addOButton= Instantiate(moveButtonPrefab,  new Vector3(-120,70,0), transform.rotation);       
         addOButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ooze";
         addOButton.transform.SetParent(moveSelectPanel.transform,false);
 
         addOButton.GetComponent<Button>().onClick.AddListener(()=> s.increaseOoze(currentBattle.consumeOoze()));
         for(int i=0; i<s.moves.Length;i++){
-            Debug.Log("msui"+i);
+            //Debug.Log("msui"+i);
            
             
             if(i>=3)
@@ -181,6 +233,15 @@ public class BattleManager : MonoBehaviour
         textPanel.gameObject.SetActive(false);
     }
 
+    public void closeHPUI(){
+        //foreach(Button button in moveSelectButtons){
+            //Destroy(button);
+        foreach (Transform child in healthPointPanel.transform){
+            GameObject.Destroy(child.gameObject);
+        }
+
+        healthPointPanel.gameObject.SetActive(false);
+    }
     public void closeSelectMoveTargetUI(){
         //foreach(Button button in moveSelectButtons){
             //Destroy(button);

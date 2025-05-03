@@ -6,7 +6,8 @@ using UnityEngine;
 public class Move{
     public int moveID;
 
-    public static String[] singleTargetMoves = {"Splash","Attack","Double Attack","Heal","Stat Change"};
+    public static String[] singleTargetMovesNegative = {"Forage","Mimic","Trash","Acid","Bubble","D Stat Change N","Absorb","Splash","Attack","Double Attack","Stat Change N"};
+    public static String[] singleTargetMovesPositive = {"Heal","Stat Change P"};
     public string moveType = "Attack";
     public string moveDescription = "This is a Move";
     public double attackMulti = 0F;
@@ -99,7 +100,7 @@ public class Move{
             case 9:
                 {
                     moveName = "Absorb";
-                    moveType = "Attack";
+                    moveType = "Absorb"; //uniqe
                     attackMulti = 0.8F;
           
                 }
@@ -122,7 +123,7 @@ public class Move{
             case 12:
                 {
                     moveName = "Chill";
-                    moveType = "Stat Change";
+                    moveType = "Stat Change N";
                     statChangeMulti = 0.8;
                     targetedStat = "Spd";            
                 }
@@ -170,7 +171,7 @@ public class Move{
             case 18: ///duplicate. replace
                 {
                     moveName = "Chill";
-                    moveType = "Stat Change";
+                    moveType = "Stat Change N";
                     statChangeMulti = 0.8;
                     targetedStat = "Spd";            
                 }
@@ -178,7 +179,7 @@ public class Move{
             case 19:
                 {
                     moveName = "Mud Slap";
-                    moveType = "Stat Change";
+                    moveType = "Stat Change N";
                     statChangeMulti = 0.80;
                     targetedStat = "Acc";            
                 }
@@ -232,7 +233,7 @@ public class Move{
             case 26:
                 {
                     moveName = "Sharpen";
-                    moveType = "Stat Change";   
+                    moveType = "Stat Change P";   
                     statChangeMulti = 1.3;   
                     targetedStat = "Atk";         
                 }
@@ -261,7 +262,7 @@ public class Move{
             case 30:
                 {
                     moveName = "Sand Gust";
-                    moveType = "D Stat Change"; //uniqe   
+                    moveType = "D Stat Change N"; //uniqe   
                     targetedStat = "Acc";      
                     statChangeMulti = 0.85f;     
                 }
@@ -269,14 +270,14 @@ public class Move{
             case 31:
                 {
                     moveName = "Sand Castle";
-                    moveType = "D Self heal"; //uniqe   
+                    moveType = "D Self Heal"; //uniqe   
                     healingValue = 3;          
                 }
                 break;
             case 32:
                 {
-                    moveName = "Beaching";
-                    moveType = "Double attack"; //uniqe   
+                    moveName = "Tides";
+                    moveType = "Double Attack"; //uniqe   
                     attackMulti = 0.6f;          
                 }
                 break;
@@ -290,7 +291,7 @@ public class Move{
             case 34:
                 {
                     moveName = "Slippery Soap";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Acc";      
                     statChangeMulti = 0.9f;     
                 }
@@ -333,7 +334,7 @@ public class Move{
             case 40:
                 {
                     moveName = "Smoke Screen";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Acc";      
                     statChangeMulti = 0.85f;     
                 }
@@ -341,7 +342,7 @@ public class Move{
              case 41:
                 {
                     moveName = "Strong Aroma";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change P"; 
                     targetedStat = "Atk";      
                     statChangeMulti = 1.2f;     
                 }
@@ -349,7 +350,7 @@ public class Move{
             case 42:
                 {
                     moveName = "Strong Odor";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Atk";      
                     statChangeMulti = 0.8f;     
                 }
@@ -386,7 +387,7 @@ public class Move{
             case 47:
                 {
                     moveName = "Sticky";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Spd";      
                     statChangeMulti = 0.7f;        
                 }
@@ -394,7 +395,7 @@ public class Move{
             case 48:
                 {
                     moveName = "Oil Slap";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Acc";      
                     statChangeMulti = 0.9f;        
                 }
@@ -402,7 +403,7 @@ public class Move{
             case 49:
                 {
                     moveName = "Sap";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Spd";      
                     statChangeMulti = 0.9f;        
                 }
@@ -423,7 +424,7 @@ public class Move{
             case 52:
                 {
                     moveName = "Sugar Rush";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change P"; 
                     targetedStat = "Spd";      
                     statChangeMulti = 1.12f;        
                 }
@@ -438,7 +439,7 @@ public class Move{
             case 54:
                 {
                     moveName = "Tasty Scoop";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change P"; 
                     targetedStat = "Atk";      
                     statChangeMulti = 1.4f;  
                 }
@@ -653,7 +654,7 @@ public class Move{
             case 84:
                 {
                     moveName = "Inky Escape";
-                    moveType = "Stat Change"; 
+                    moveType = "Stat Change N"; 
                     targetedStat = "Acc";      
                     statChangeMulti = 0.8f;  
                 }
@@ -745,6 +746,10 @@ public class Move{
             case "Self Heal":
                 owner.healDamage(healingValue,bm);
                 break;
+            case "D Self Heal":
+                owner.healDamage(healingValue,bm);
+                owner.healDamage(healingValue,bm);
+                break;
 
             case "Heal":
                 target.healDamage(healingValue,bm);
@@ -753,7 +758,14 @@ public class Move{
             case "Self Stat Change":
                 owner.changeStat(statChangeMulti,targetedStat,bm);
                 break;
-            case "Stat Change":
+            case "Stat Change P":
+                target.changeStat(statChangeMulti,targetedStat,bm);
+                break;
+            case "Stat Change N":
+                target.changeStat(statChangeMulti,targetedStat,bm);
+                break;
+            case "D Stat Change N":
+                target.changeStat(statChangeMulti,targetedStat,bm);
                 target.changeStat(statChangeMulti,targetedStat,bm);
                 break;
             case "Self Destruct":
@@ -852,8 +864,61 @@ public class Move{
             //Special Moves
             case "Splash":
                 target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
-                //chang to water slime
+                if(UnityEngine.Random.Range(0f,1f)>0.4f){
+                    target.convertSlime(1);
+                }
                 break;
+
+            case "Random Stat Change":
+                string [] targetedStatList = {"Atk","Acc","Spd"};
+                owner.changeStat(statChangeMulti,targetedStatList[UnityEngine.Random.Range(0,targetedStatList.Length)],bm);
+                break;
+            case "Bubble":
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
+                if(UnityEngine.Random.Range(0f,1f)>0.5f){
+                    target.convertSlime(14);
+                }
+                break;
+            case "Acid":
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
+                if(UnityEngine.Random.Range(0f,1f)>0.2f){
+                    target.convertSlime(16);
+                }
+                break;
+             case "Habitat":
+                    int[] itemList = {4,12,22};
+                    bm.player.reciveItem(itemList[UnityEngine.Random.Range(0,itemList.Length)]);
+
+                break;
+            case "Summon Circle":
+                    int[] itemList2 = {15,25,26};
+                    bm.player.reciveItem(itemList2[UnityEngine.Random.Range(0,itemList2.Length)]);
+                break;
+            case "Trash":
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
+                    target.convertSlime(31);
+                break;
+            case "Mimic":
+                    owner.convertSlime(target.speciesID);
+                    
+                break;
+            case "Alchemy":
+                int[] possibleConversions = {2,3,10,11,13,34,28,29};
+                    target.convertSlime(possibleConversions[UnityEngine.Random.Range(0,possibleConversions.Length)]);
+                break;
+            case "Forage":
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
+                owner.changeStat(statChangeMulti,targetedStat,bm);
+                break;
+             case "Absorb":
+                target.takeDamage((int) (owner.currentAttack * attackMulti),bm);
+                owner.healDamage((int)(owner.currentAttack * attackMulti),bm);
+                break;
+
+
+
+
+
             default:
                 //Text: move was used, nothing happened
                 break;

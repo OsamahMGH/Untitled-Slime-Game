@@ -14,15 +14,15 @@ public class Player{
     
     public Player(){ //initial party of 4 water slimes
         maxOozeLevel = 5;
-        team.Add(new Slime(32));
-        team.Add(new Slime(32));
-        team.Add(new Slime(32));
-        team.Add(new Slime(32));
+        team.Add(new Slime(1));
+        team.Add(new Slime(1));
+        team.Add(new Slime(2));
+        team.Add(new Slime(2));
         team.Capacity=6;
         reciveItem(3); //Stone Shard
     }
 
-    public bool increaseOoze(int amount){
+    public bool increaseMaxOoze(int amount){
         if(maxOozeLevel + amount <=oozeLimit){
             maxOozeLevel += amount;
             return true;
@@ -43,6 +43,7 @@ public class Player{
 
     public bool addSlime(Slime newPartyMember){
         if(team.Count<team.Capacity){
+            Debug.Log("" + newPartyMember.speciesName + " Slime Joined Your Party");
             team.Add(newPartyMember);
             return true;
         } else
@@ -65,6 +66,10 @@ public class Player{
 
     public void payCurrency(int amountPayed){
         currency-=amountPayed;
+    }
+
+    public int getInventorySize(){
+        return inventory.Count;
     }
     
     public bool consumeItem(int iD){
@@ -90,6 +95,7 @@ public class Player{
         }
     }
     public void reciveItem(int iD){
+         Debug.Log("You Recived 1 " + new Item(iD).itemName);
         foreach(var i in inventory ){
             Item checkedItem = (Item)i.Key;
             int quantity = i.Value;

@@ -19,6 +19,8 @@ public class TeleportManager : MonoBehaviour
     [Tooltip("Drag the UI Text component that shows the score")]
     public TextMeshProUGUI scoreText;
 
+    public List<GameObject> eventTriggers; 
+
     private List<int> unvisitedAreas;
     private int score = 0;
 
@@ -61,6 +63,9 @@ public class TeleportManager : MonoBehaviour
     // refill the “to-visit” list with 0…spawnPoints.Length-1
     private void ResetAreaList()
     {
+        foreach(GameObject et in eventTriggers){
+            et.gameObject.SetActive(true);
+        }
         unvisitedAreas = new List<int>(spawnPoints.Length);
         for (int i = 0; i < spawnPoints.Length; i++)
             unvisitedAreas.Add(i);

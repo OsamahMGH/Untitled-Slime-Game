@@ -29,6 +29,7 @@ public class Slime {
 
         speciesID = iD;
         damageTaken = dmgTaken;
+        oozeLevel = oLvl;
 
         switch(iD){
 
@@ -491,7 +492,41 @@ public class Slime {
 
         Slime s = new Slime(newID);
         this.speciesID = s.speciesID;
-        this.speciesName = s.speciesName;
+        switch(newID){
+            case 1:
+                this.speciesName = "Wet " + this.speciesName;
+                break;
+            case 14:
+                this.speciesName = "Soapy " + this.speciesName;
+                break;
+            case 16:
+                this.speciesName = "Old "+ this.speciesName;
+                break;
+            case 2:
+                this.speciesName = "Burning "+ this.speciesName;
+                break;
+            case 3:
+                this.speciesName = "Rocky "+ this.speciesName;
+                break;
+            case 10:
+                this.speciesName = "Ashy "+ this.speciesName;
+                break;
+            case 11:
+                this.speciesName = "Coated "+ this.speciesName;
+                break;
+            case 13:
+                this.speciesName = "Dusty "+ this.speciesName;
+                break;
+            case 34:
+                this.speciesName = "Star Struck "+ this.speciesName;
+                break;
+            case 28:
+                this.speciesName = "Shiny "+ this.speciesName;
+                break;
+            case 29:
+                this.speciesName = "Fool's "+ this.speciesName;
+                break;
+        }
         this.speciesDescription = s.speciesDescription;
         this.hitPointModifier = s.hitPointModifier;
         this.attackModifier = s.attackModifier;
@@ -511,23 +546,26 @@ public class Slime {
         currentAttack = baseAttack;
         currentSpeed = baseSpeed;
 
+
         return true;
 
     }
    
 
     public bool takeDamage(int dmg, BattleManager bm,string element = "None", bool checkIfHPLow = false){ //returns true if slime had been defeated
-
+        if(dmg<=0){
+            dmg=1;
+        }
         currentHP -= dmg;
         if (currentHP<=0){
             currentHP=0;
-            Debug.Log(this.speciesName + " Slime took fatal damage");
+            //Debug.Log(this.speciesName + " Slime took fatal damage");
             bm.textWindowUI(this.speciesName + " Slime took fatal damage");
 
             return true;
         }
 
-        Debug.Log(this.speciesName + " Slime took some damage");
+        //Debug.Log(this.speciesName + " Slime took some damage");
         bm.textWindowUI(this.speciesName + " Slime took some damage");
         return false;
         
@@ -538,7 +576,7 @@ public class Slime {
         if (currentHP>maxHP){
             currentHP=maxHP;
         }
-        Debug.Log(this.speciesName + " Slime Recived healing");
+        //Debug.Log(this.speciesName + " Slime Recived healing");
         bm.textWindowUI(this.speciesName + " Slime Recived healing");
         
     }
@@ -575,7 +613,7 @@ public class Slime {
                 break;
         }
 
-        Debug.Log(this.speciesName + " Slime's stats changed");
+        //Debug.Log(this.speciesName + " Slime's stats changed");
 
     }
 
