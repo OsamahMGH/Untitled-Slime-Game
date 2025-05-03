@@ -126,10 +126,10 @@ public class BattleManager : MonoBehaviour
         bt2 = Instantiate(moveButtonPrefab,  new Vector3(-292,115,0), transform.rotation);
         bt3 = Instantiate(moveButtonPrefab,  new Vector3(-292,70,0), transform.rotation); 
         addOButton= Instantiate(moveButtonPrefab,  new Vector3(-120,70,0), transform.rotation);       
-        addOButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ooze";
+        addOButton.GetComponentInChildren<TextMeshProUGUI>().text = "Add Ooze";
         addOButton.transform.SetParent(moveSelectPanel.transform,false);
 
-        addOButton.GetComponent<Button>().onClick.AddListener(()=> s.increaseOoze(currentBattle.consumeOoze()));
+        addOButton.GetComponent<Button>().onClick.AddListener(()=> s.increaseOoze(currentBattle.consumeOoze(this),this));
         for(int i=0; i<s.moves.Length;i++){
             //Debug.Log("msui"+i);
            
