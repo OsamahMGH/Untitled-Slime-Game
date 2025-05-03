@@ -702,6 +702,13 @@ public class Move{
                     healingValue = 4;      
                 }
                 break;
+            case 91:
+                {
+                    moveName = "Second Act";
+                    moveType = "Full Heal"; 
+                    healingValue = 15;      
+                }
+                break;
 
             
 

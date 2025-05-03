@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class BattleManager : MonoBehaviour
     Image hP0,hP1, hP2,hP3; 
     public Image hpPrefab;
     public Image healthPointPanel;
+
+    int encouterCount =0;
     
     Battle currentBattle;
     public Player player = new Player();
@@ -34,11 +37,26 @@ public class BattleManager : MonoBehaviour
     }
 
     public void startEncouter(string stage,GameObject teleporter){
+        if(player.team.Count<=0){
+           Debug.Log("Game Over");
+           textWindowUI("You are out of Slimes.. It's Game Over for you.");
+           StartCoroutine(gameOver());
+           return;
+
+        }
+        bool isBoss = false;
+        encouterCount++;
+        if(encouterCount>=5){
+            if(UnityEngine.Random.Range(encouterCount,11)>10){
+                isBoss = true;
+                encouterCount=0;
+            }
+        }
         if(player.team.Count>=2){
-            currentBattle = new Battle(player,player.team[0],player.team[1],stage,bo);
+            currentBattle = new Battle(player,player.team[0],player.team[1],stage,bo,isBoss);
             currentBattle.startBattle(player,this,spawner,teleporter);
         }else {
-            currentBattle = new Battle(player,player.team[0],stage,bo);
+            currentBattle = new Battle(player,player.team[0],stage,bo,isBoss);
             currentBattle.startBattle(player,this,spawner,teleporter);
         }
 
@@ -289,8 +307,26 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
             Cursor.lockState = CursorLockMode.None;
 
+
         if (Input.GetKey(KeyCode.E))
             Cursor.lockState = CursorLockMode.Locked;
         
+    }
+
+
+    IEnumerator gameOver()
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 }

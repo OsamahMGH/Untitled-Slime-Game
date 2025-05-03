@@ -344,7 +344,7 @@ public class Slime {
                     hitPointModifier = 6;
                     attackModifier = 1;
                     baseSpeed = 1;
-                    moves = new Move[] {new Move(73,this)};
+                    moves = new Move[] {new Move(73,this),new Move(75,this),new Move(91,this)};
                 }
                 break;
             case 34:

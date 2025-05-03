@@ -12,7 +12,7 @@ public class Battle{
     
     int turnNumber=1;
 
-    bool isBossBattle;
+    bool isBossBattle=false;
     string stage; 
 
     public List<Slime> playerSlimes = new List<Slime>();
@@ -39,15 +39,23 @@ public class Battle{
     
 
 
-    public  Battle(Player player,Slime allySlime1, Slime allySlime2,string currentStage,BattleOrder bo){
+    public  Battle(Player player,Slime allySlime1, Slime allySlime2,string currentStage,BattleOrder bo,bool bossFight=false){
         oLvl = player.maxOozeLevel;
 
         initilizeLists();
 
+        isBossBattle = bossFight;
+
         playerSlimes.Add(allySlime1);
         playerSlimes.Add(allySlime2);
-        enemySlimes.Add(generateSlime(currentStage));
-        enemySlimes.Add(generateSlime(currentStage));
+        if(!isBossBattle){
+            enemySlimes.Add(generateSlime(currentStage));
+            enemySlimes.Add(generateSlime(currentStage));
+        }else{
+            enemySlimes.Add(generateBossSlime(currentStage,0));
+            enemySlimes.Add(generateBossSlime(currentStage,1)); 
+        }
+       
 
         stage = currentStage;
 
@@ -58,7 +66,7 @@ public class Battle{
 
     }
 
-    public  Battle(Player player,Slime allySlime1,string currentStage,BattleOrder bo){
+    public  Battle(Player player,Slime allySlime1,string currentStage,BattleOrder bo,bool bossFight=false){
         oLvl = player.maxOozeLevel;
 
         playerSlimes.Add(allySlime1);
@@ -68,6 +76,71 @@ public class Battle{
         battleOrder = bo;
 
 
+    }
+
+
+     public Slime generateBossSlime(string stage, int pos){
+
+        Slime s;
+
+        switch(stage){
+
+            case "Forest":
+                if(pos ==0){
+                    s= new Slime(39,UnityEngine.Random.Range(oLvl/2,oLvl));
+                } else {
+                    s= new Slime(26,UnityEngine.Random.Range(oLvl/2,oLvl));
+                }
+                break;
+                
+
+            case "Fall":
+                if(pos ==0){
+                    s= new Slime(41,UnityEngine.Random.Range(oLvl/2,oLvl));
+                } else {
+                    s= new Slime(43,UnityEngine.Random.Range(oLvl/2,oLvl));
+                }
+                break;
+
+
+            case "Winter":
+
+               if(pos ==0){
+                    s= new Slime(36,UnityEngine.Random.Range(oLvl/2,oLvl));
+                } else {
+                    s= new Slime(7,UnityEngine.Random.Range(oLvl/2,oLvl));
+                }
+                break;
+                
+        
+
+            case "City":
+
+                if(pos ==0){
+                    s= new Slime(35,UnityEngine.Random.Range(oLvl/2,oLvl));
+                } else {
+                    s= new Slime(14,UnityEngine.Random.Range(oLvl/2,oLvl));
+                }
+                break;
+
+            case "Castle":
+
+                if(pos ==0){
+                    s= new Slime(40,UnityEngine.Random.Range(oLvl/2,oLvl));
+                } else {
+                    s= new Slime(40,UnityEngine.Random.Range(oLvl/2,oLvl));
+                }
+                break;
+
+            default:
+                s = new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                break;
+
+
+        }
+
+        
+        return s;
     }
 
     void initilizeLists(){
@@ -86,6 +159,7 @@ public class Battle{
             forestSlimes.Add(23);
             forestSlimes.Add(26);
             forestSlimes.Add(29);
+            forestSlimes.Add(29);
 
             rareForestSlimes.Add(12);
             rareForestSlimes.Add(28);
@@ -93,6 +167,7 @@ public class Battle{
             rareForestSlimes.Add(31);
             rareForestSlimes.Add(32);
             rareForestSlimes.Add(33);
+            rareForestSlimes.Add(34);
             rareForestSlimes.Add(34);
             
         }
@@ -110,6 +185,7 @@ public class Battle{
             fallSlimes.Add(18);
             fallSlimes.Add(21);
             fallSlimes.Add(22);
+            fallSlimes.Add(22);
 
             rareFallSlimes.Add(7);
             rareFallSlimes.Add(11);
@@ -118,6 +194,7 @@ public class Battle{
             rareFallSlimes.Add(30);
             rareFallSlimes.Add(32);
             rareFallSlimes.Add(33);
+            rareFallSlimes.Add(34);
             rareFallSlimes.Add(34);
             
         }
@@ -138,6 +215,7 @@ public class Battle{
             winterSlimes.Add(21);
             winterSlimes.Add(28);
             winterSlimes.Add(29);
+            winterSlimes.Add(29);
             
             
             
@@ -151,6 +229,7 @@ public class Battle{
             rareWinterSlimes.Add(24);
             rareWinterSlimes.Add(24);
             rareWinterSlimes.Add(26);
+            rareWinterSlimes.Add(22);
             rareWinterSlimes.Add(22);
 
         }
@@ -171,6 +250,7 @@ public class Battle{
             citySlimes.Add(31);
             citySlimes.Add(31);
             citySlimes.Add(31);
+            citySlimes.Add(31);
             
 
 
@@ -185,6 +265,7 @@ public class Battle{
             rareCitySlimes.Add(32);
             rareCitySlimes.Add(33);
             rareCitySlimes.Add(34);
+            rareCitySlimes.Add(16);
             rareCitySlimes.Add(16);
 
         }
@@ -202,6 +283,7 @@ public class Battle{
             islandSlimes.Add(27);
             islandSlimes.Add(28);
             islandSlimes.Add(28);
+            islandSlimes.Add(28);
 
             rareIslandSlimes.Add(3);
             rareIslandSlimes.Add(4);
@@ -210,6 +292,7 @@ public class Battle{
             rareIslandSlimes.Add(30);
             rareIslandSlimes.Add(32);
             rareIslandSlimes.Add(33);
+            rareIslandSlimes.Add(34);
             rareIslandSlimes.Add(34);
 
         }
@@ -232,12 +315,14 @@ public class Battle{
             castleSlimes.Add(25);
             castleSlimes.Add(29);
             castleSlimes.Add(29);
+            castleSlimes.Add(29);
 
             rareCastleSlimes.Add(18);
             rareCastleSlimes.Add(12);
             rareCastleSlimes.Add(30);
             rareCastleSlimes.Add(32);
             rareCastleSlimes.Add(33);
+            rareCastleSlimes.Add(34);
             rareCastleSlimes.Add(34);
             rareCastleSlimes.Add(34);
         }
@@ -260,9 +345,9 @@ public class Battle{
 
             case "Forest":
                 if(!rareSpawn){
-                    s= new Slime(forestSlimes[UnityEngine.Random.Range(0,forestSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
+                    s= new Slime(forestSlimes[UnityEngine.Random.Range(0,forestSlimes.Count-1)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareForestSlimes[UnityEngine.Random.Range(0,rareForestSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                     s= new Slime(rareForestSlimes[UnityEngine.Random.Range(0,rareForestSlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
 
                 break;
@@ -271,9 +356,9 @@ public class Battle{
             case "Fall":
 
                 if(!rareSpawn){
-                    s= new Slime(fallSlimes[UnityEngine.Random.Range(0,fallSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
+                    s= new Slime(fallSlimes[UnityEngine.Random.Range(0,fallSlimes.Count-1)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                     s= new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
 
                 break;
@@ -282,41 +367,41 @@ public class Battle{
             case "Winter":
 
                 if(!rareSpawn){
-                    s= new Slime(winterSlimes[UnityEngine.Random.Range(0,winterSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
+                    s= new Slime(winterSlimes[UnityEngine.Random.Range(0,winterSlimes.Count-1)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareWinterSlimes[UnityEngine.Random.Range(0,rareWinterSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                     s= new Slime(rareWinterSlimes[UnityEngine.Random.Range(0,rareWinterSlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
 
                 break;
                 
             case "Island":
                 if(!rareSpawn){
-                    s= new Slime(islandSlimes[UnityEngine.Random.Range(0,islandSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
+                    s= new Slime(islandSlimes[UnityEngine.Random.Range(0,islandSlimes.Count-1)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareIslandSlimes[UnityEngine.Random.Range(0,rareIslandSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                     s= new Slime(rareIslandSlimes[UnityEngine.Random.Range(0,rareIslandSlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
                
                 break;
 
             case "City":
                 if(!rareSpawn){
-                    s= new Slime(citySlimes[UnityEngine.Random.Range(0,citySlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
+                    s= new Slime(citySlimes[UnityEngine.Random.Range(0,citySlimes.Count-1)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareCitySlimes[UnityEngine.Random.Range(0,rareCitySlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                     s= new Slime(rareCitySlimes[UnityEngine.Random.Range(0,rareCitySlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
                 
                 break;
             case "Castle":
                 if(!rareSpawn){
-                    s= new Slime(castleSlimes[UnityEngine.Random.Range(0,castleSlimes.Count)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
+                    s= new Slime(castleSlimes[UnityEngine.Random.Range(0,castleSlimes.Count-1)],UnityEngine.Random.Range(oLvl/4,3*oLvl/4));
                 } else{
-                     s= new Slime(rareCastleSlimes[UnityEngine.Random.Range(0,rareCastleSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                     s= new Slime(rareCastleSlimes[UnityEngine.Random.Range(0,rareCastleSlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 }
                 
                 break;
 
             default:
-                s = new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
+                s = new Slime(rareFallSlimes[UnityEngine.Random.Range(0,rareFallSlimes.Count-1)],UnityEngine.Random.Range(oLvl/2,3*oLvl/4));
                 break;
 
 

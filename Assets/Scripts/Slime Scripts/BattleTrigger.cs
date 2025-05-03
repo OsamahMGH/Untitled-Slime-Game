@@ -35,7 +35,8 @@ public class BattleTrigger : MonoBehaviour
                         }
                         break;
                     case "Winter":
-                            battleManager.bo.displayNotification(battleManager,1f,"Your Slimes enjoyed playing in the snow!");
+                            battleManager.player.increaseMaxOoze(1);
+                            battleManager.bo.displayNotification(battleManager,2f,"Your Slimes enjoyed playing in the snow! They even found some extar Ooze.");
                             break;
                     case "Forest":
                             if(battleManager.player.increaseMaxOoze(1)){
@@ -46,6 +47,12 @@ public class BattleTrigger : MonoBehaviour
                             break;
                     case "City":
                             if(battleManager.player.team.Count>1){
+                                if(battleManager.player.currency>=50){
+                                    battleManager.player.payCurrency(50);
+                                    battleManager.player.addSlime(new Slime(UnityEngine.Random.Range(28,35)));
+                                    battleManager.bo.displayNotification(battleManager,2f,"A Shady figure sold you a supposdly rare Slime.");
+
+                                }
                                 battleManager.player.removeSlime(battleManager.player.team[UnityEngine.Random.Range(0,battleManager.player.team.Count)]);
                                 battleManager.bo.displayNotification(battleManager,2f,"Your Slimes were not careful crossing the street... RIP");
                             } else {
