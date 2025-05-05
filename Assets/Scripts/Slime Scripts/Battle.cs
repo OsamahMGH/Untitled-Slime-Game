@@ -496,6 +496,7 @@ public class Battle{
              Debug.Log("You don't have enough Ooze :(");
             return 0;
         }
+        
         oLvl-=1;
         return 1;
     }

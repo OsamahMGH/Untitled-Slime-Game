@@ -14,12 +14,13 @@ public class Player{
     
     public Player(){ //initial party of 4 water slimes
         maxOozeLevel = 5;
-        team.Add(new Slime(10));
-        team.Add(new Slime(10));
-        team.Add(new Slime(10));
-        team.Add(new Slime(10));
+        
+        team.Add(new Slime(1));
+        team.Add(new Slime(1));
+        team.Add(new Slime(2));
+        team.Add(new Slime(2));
         team.Capacity=6;
-        //reciveItem(3); //Stone Shard
+        reciveItem(3); //Stone Shard
     }
 
     public bool increaseMaxOoze(int amount){

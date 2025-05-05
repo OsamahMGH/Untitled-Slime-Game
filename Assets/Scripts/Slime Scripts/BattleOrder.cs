@@ -55,6 +55,8 @@ public class BattleOrder: MonoBehaviour
                         battleManager.textWindowUI("Nothing Happend");
                     }
 
+                    //other uniqe moves here
+
                     if(currentBattle.playerSlimes.Contains(m.owner)){
                     m.useMove(currentBattle.playerSlimes,currentBattle.enemySlimes,battleManager);
                     } else {
@@ -71,7 +73,7 @@ public class BattleOrder: MonoBehaviour
                         if (currentBattle.playerSlimes.Contains(currentBattle.playerSlimes[i])){
                             battleManager.closeHPUI();
                             for (int j=0;j<currentBattle.playerSlimes.Count;j++){
-                                battleManager.healthPointsUI(currentBattle.playerSlimes[i],j);
+                                battleManager.healthPointsUI(currentBattle.playerSlimes[j],j);
                             }
                             for (int j=0;j<currentBattle.enemySlimes.Count;j++){
                                 battleManager.healthPointsUI(currentBattle.enemySlimes[j],j+2);
@@ -137,9 +139,6 @@ public class BattleOrder: MonoBehaviour
 
                     battleManager.closeTextWinowUI();
                     battleManager.closeTextWinowUI();
-                    battleManager.closeHPUI();
-                    battleManager.closeHPUI();
-                   
                     
                     currentBattle.startTurn(player,battleManager,spawner);
                 }else{

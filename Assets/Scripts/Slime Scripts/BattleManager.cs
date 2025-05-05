@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.Controls;
 
 public class BattleManager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class BattleManager : MonoBehaviour
 
     int encouterCount =0;
     
-    Battle currentBattle;
+    public Battle currentBattle;
     public Player player = new Player();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,23 +69,35 @@ public class BattleManager : MonoBehaviour
         
         switch(pos){
             case 0:
-                hP0=Instantiate(hpPrefab,  new Vector3(-51,52,0), transform.rotation);
+                hP0=Instantiate(hpPrefab,  new Vector3(-51*3,52*3,0), transform.rotation);
                 hP0.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                PointerEventsController script5 = hP0.GetComponent<PointerEventsController>();
+                script5.setDescription("Ooze Level: "+s.oozeLevel+" Attack: " + s.currentAttack + " Speed: " + s.currentSpeed + " Accuracy: " + s.accuracy );
+                script5.setBattleManager(this);
                 hP0.transform.SetParent(healthPointPanel.transform,false);
                 break;
             case 1:
-                hP1=Instantiate(hpPrefab,  new Vector3(56,52,0), transform.rotation);
+                hP1=Instantiate(hpPrefab,  new Vector3(56*3,52*3,0), transform.rotation);
                 hP1.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                PointerEventsController script6 = hP1.GetComponent<PointerEventsController>();
+                script6.setDescription("Ooze Level: "+s.oozeLevel+" Attack: " + s.currentAttack + " Speed: " + s.currentSpeed + " Accuracy: " + s.accuracy );
+                script6.setBattleManager(this);
                 hP1.transform.SetParent(healthPointPanel.transform,false);
                 break;
             case 2:
-                hP2=Instantiate(hpPrefab,  new Vector3(-51,136,0), transform.rotation);
+                hP2=Instantiate(hpPrefab,  new Vector3(-51*3,136*3,0), transform.rotation);
                 hP2.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                PointerEventsController script7 = hP2.GetComponent<PointerEventsController>();
+                script7.setDescription("Ooze Level: "+s.oozeLevel+" Attack: " + s.currentAttack + " Speed: " + s.currentSpeed + " Accuracy: " + s.accuracy );
+                script7.setBattleManager(this);
                 hP2.transform.SetParent(healthPointPanel.transform,false);
                 break;
             case 3:
-                hP3=Instantiate(hpPrefab,  new Vector3(56,136,0), transform.rotation);
+                hP3=Instantiate(hpPrefab,  new Vector3(56*3,136*3,0), transform.rotation);
                 hP3.GetComponentInChildren<TextMeshProUGUI>().text = s.speciesName+" Slime \n"+s.currentHP+"/"+s.maxHP+"";
+                PointerEventsController script8 = hP3.GetComponent<PointerEventsController>();
+                script8.setDescription("Ooze Level: "+s.oozeLevel+" Attack: " + s.currentAttack + " Speed: " + s.currentSpeed + " Accuracy: " + s.accuracy );
+                script8.setBattleManager(this);
                 hP3.transform.SetParent(healthPointPanel.transform,false);
                 break;
         }
@@ -119,17 +132,21 @@ public class BattleManager : MonoBehaviour
         Image msbg;
         
 
-        msbg= Instantiate(moveSelectBGPrefab,  new Vector3(-210,90,0), transform.rotation); 
+        msbg= Instantiate(moveSelectBGPrefab,  new Vector3(-600,255,0), transform.rotation); 
         msbg.transform.SetParent(moveSelectPanel.transform,false);
 
-        bt1 = Instantiate(moveButtonPrefab,  new Vector3(-120,115,0), transform.rotation);
-        bt2 = Instantiate(moveButtonPrefab,  new Vector3(-292,115,0), transform.rotation);
-        bt3 = Instantiate(moveButtonPrefab,  new Vector3(-292,70,0), transform.rotation); 
-        addOButton= Instantiate(moveButtonPrefab,  new Vector3(-120,70,0), transform.rotation);       
+        bt1 = Instantiate(moveButtonPrefab,  new Vector3(-120 *3,115*3,0), transform.rotation);
+        bt2 = Instantiate(moveButtonPrefab,  new Vector3(-292*3,115*3,0), transform.rotation);
+        bt3 = Instantiate(moveButtonPrefab,  new Vector3(-292*3,70*3,0), transform.rotation); 
+        addOButton= Instantiate(moveButtonPrefab,  new Vector3(-120*3,70*3,0), transform.rotation);       
         addOButton.GetComponentInChildren<TextMeshProUGUI>().text = "Add Ooze";
         addOButton.transform.SetParent(moveSelectPanel.transform,false);
 
         addOButton.GetComponent<Button>().onClick.AddListener(()=> s.increaseOoze(currentBattle.consumeOoze(this),this));
+        PointerEventsController script4 = addOButton.GetComponent<PointerEventsController>();
+        script4.setDescription("Adding Ooze increases this " + s.speciesName + " Slime's base stats during this battle");
+        script4.setBattleManager(this);
+        
         for(int i=0; i<s.moves.Length;i++){
             //Debug.Log("msui"+i);
            
@@ -144,19 +161,25 @@ public class BattleManager : MonoBehaviour
                 bt1.transform.SetParent(moveSelectPanel.transform,false);
 
                 bt1.GetComponent<Button>().onClick.AddListener(()=> currentBattle.selectAMove(player,s.moves[0],currentBattle.enemySlimes[0],this,spawner)); //set actual targets and move apparently
-
+                PointerEventsController script1 = bt1.GetComponent<PointerEventsController>();
+                script1.setDescription(s.moves[0].moveDescription);
+                script1.setBattleManager(this);
             }else if(i==1){
                 bt2.GetComponentInChildren<TextMeshProUGUI>().text = s.moves[1].moveName;
                 bt2.transform.SetParent(moveSelectPanel.transform,false);
 
                 bt2.GetComponent<Button>().onClick.AddListener(()=> currentBattle.selectAMove(player,s.moves[1],currentBattle.enemySlimes[0],this,spawner)); //set actual targets and move apparently
-
+                PointerEventsController script2 = bt2.GetComponent<PointerEventsController>();
+                script2.setDescription(s.moves[1].moveDescription);
+                script2.setBattleManager(this);
             } else{
                 bt3.GetComponentInChildren<TextMeshProUGUI>().text = s.moves[2].moveName;
                 bt3.transform.SetParent(moveSelectPanel.transform,false);
 
                 bt3.GetComponent<Button>().onClick.AddListener(()=> currentBattle.selectAMove(player,s.moves[2],currentBattle.enemySlimes[0],this,spawner)); //set actual targets and move apparently
-
+                PointerEventsController script3 = bt3.GetComponent<PointerEventsController>();
+                script3.setDescription(s.moves[2].moveDescription);
+                script3.setBattleManager(this);
             } 
             
 
@@ -176,9 +199,9 @@ public class BattleManager : MonoBehaviour
 
         Button tsb1,tsb2,tsb3; 
 
-        tsb1 = Instantiate(targetButtonPrefab, new Vector3(-76,200,0), transform.rotation);
-        tsb2 = Instantiate(targetButtonPrefab,  new Vector3(76,200,0), transform.rotation);
-        tsb3 = Instantiate(targetButtonPrefab,  new Vector3(0,80,0), transform.rotation);      
+        tsb1 = Instantiate(targetButtonPrefab, new Vector3(-228-500,600,0), transform.rotation);
+        tsb2 = Instantiate(targetButtonPrefab,  new Vector3(228-500,600,0), transform.rotation);
+        tsb3 = Instantiate(targetButtonPrefab,  new Vector3(-500,240,0), transform.rotation);      
 
         for(int i=0; i<3;i++){
            
@@ -235,7 +258,7 @@ public class BattleManager : MonoBehaviour
 
         Image textWindow; 
 
-        textWindow = Instantiate(textWindowPrefab,  new Vector3(4,50,0), transform.rotation);
+        textWindow = Instantiate(textWindowPrefab,  new Vector3(12,240,0), transform.rotation);
         textWindow.GetComponentInChildren<TextMeshProUGUI>().text = str;
         textWindow.transform.SetParent(textPanel.transform,false);
      

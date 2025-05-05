@@ -5,6 +5,7 @@ using Utils;
 using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
+using System;
 
 public class Slime {
     public int speciesID;
@@ -481,7 +482,7 @@ public class Slime {
 
 
         if(addedOoze>0){
-            bm.bo.displayNotification(bm,1.5f,"Your " + speciesName + " Slime Increased it's Ooze. It has become stronger!");
+            bm.bo.displayNotification(bm,1.5f,"Your " + speciesName + " Slime Increased it's Ooze. It's become stronger!");
 
         oozeLevel+=addedOoze;
         float hpPercentage = currentHP/maxHP;
@@ -489,6 +490,14 @@ public class Slime {
         currentHP = (int)(hpPercentage * maxHP);
         baseAttack = attackModifier * oozeLevel;
         currentAttack = baseAttack;
+
+        bm.closeHPUI();
+        for (int j=0;j<bm.currentBattle.playerSlimes.Count;j++){
+            bm.healthPointsUI(bm.currentBattle.playerSlimes[j],j);
+        }
+        for (int j=0;j<bm.currentBattle.enemySlimes.Count;j++){
+            bm.healthPointsUI(bm.currentBattle.enemySlimes[j],j+2);
+        }
 
         }
         
@@ -498,7 +507,7 @@ public class Slime {
     public bool convertSlime(int newID){ //this is such an ineffecient and probably incorrect way to do this :(
 
         Slime s = new Slime(newID);
-        this.speciesID = s.speciesID;
+        //this.speciesID = s.speciesID;
         switch(newID){
             case 1:
                 this.speciesName = "Wet " + this.speciesName;
@@ -533,8 +542,11 @@ public class Slime {
             case 29:
                 this.speciesName = "Fool's "+ this.speciesName;
                 break;
+            case 31:
+                this.speciesName = "Dirty "+ this.speciesName;
+                break;
         }
-        this.speciesDescription = s.speciesDescription;
+        //this.speciesDescription = s.speciesDescription;
         this.hitPointModifier = s.hitPointModifier;
         this.attackModifier = s.attackModifier;
         this.baseSpeed = s.baseSpeed;
@@ -563,7 +575,8 @@ public class Slime {
         if(dmg<=0){
             dmg=1;
         }
-        currentHP -= dmg;
+        damageTaken+=dmg;
+        currentHP = maxHP -damageTaken;
         if (currentHP<=0){
             currentHP=0;
             //Debug.Log(this.speciesName + " Slime took fatal damage");
@@ -578,8 +591,8 @@ public class Slime {
         
     }
     public void healDamage(int healAmount,BattleManager bm){
-
-        currentHP += healAmount;
+        damageTaken-=healAmount;
+        currentHP = maxHP - damageTaken;
         if (currentHP>maxHP){
             currentHP=maxHP;
         }
@@ -595,7 +608,7 @@ public class Slime {
         }
         switch (targetStat){
             case "Atk":
-                currentAttack = (int) (currentAttack * statChangeModifier);
+                currentAttack =  (int)Math.Ceiling(currentAttack * statChangeModifier);
                 if(increased){
                     bm.textWindowUI(this.speciesName + " Slime's Attack Increased");
                 } else {
@@ -603,7 +616,7 @@ public class Slime {
                 }
                 break;
              case "Acc":
-                accuracy = (int) (accuracy * statChangeModifier);
+                accuracy = (int) Math.Ceiling(accuracy * statChangeModifier);
                 if(increased){
                     bm.textWindowUI(this.speciesName + " Slime's Accuracy Increased");
                 } else {
@@ -611,7 +624,7 @@ public class Slime {
                 }
                 break;
              case "Spd":
-                currentSpeed = (int) (currentSpeed * statChangeModifier);
+                currentSpeed = (int) Math.Ceiling(currentSpeed * statChangeModifier);
                 if(increased){
                     bm.textWindowUI(this.speciesName + " Slime's Speed Increased");
                 }else {
