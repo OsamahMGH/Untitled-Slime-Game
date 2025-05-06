@@ -23,18 +23,19 @@ public class FirstPersonLook : MonoBehaviour
     {
         // Lock the mouse cursor to the game screen.
         Cursor.lockState = CursorLockMode.Locked;
+        disabled=false;
     }
 
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.Q)){
+        if (!disabled &&Input.GetKeyUp(KeyCode.Tab)){
             Cursor.lockState = CursorLockMode.None;
             disabled=true;
-            
-            }
 
-        if (Input.GetKey(KeyCode.E)){
+        } else
+
+        if (disabled && Input.GetKeyUp(KeyCode.Tab)){
             Cursor.lockState = CursorLockMode.Locked;
             disabled=false;
         }

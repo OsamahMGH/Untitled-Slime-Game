@@ -37,6 +37,13 @@ public class BattleManager : MonoBehaviour
 
     }
 
+    void Update(){
+
+        if (Input.GetKey(KeyCode.I)){
+            bo.displayNotification(this,2f,"Team: " + player.team.Count + "/" + player.team.Capacity + " Slimes \t Max Ooze Stored: "+ player.maxOozeLevel+"\nCurrency: "+player.currency+" \t\t Uniqe Items Stored: " + player.getInventorySize());
+
+            }
+    }
     public void startEncouter(string stage,GameObject teleporter){
         if(player.team.Count<=0){
            Debug.Log("Game Over");
@@ -325,16 +332,7 @@ public class BattleManager : MonoBehaviour
     
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Q))
-            Cursor.lockState = CursorLockMode.None;
-
-
-        if (Input.GetKey(KeyCode.E))
-            Cursor.lockState = CursorLockMode.Locked;
-        
-    }
+    
 
 
     IEnumerator gameOver()
